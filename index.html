@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>優口之書</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<h2 id="output"></h2>
+<p>請刷新頁面重抽</p>
+</br></br>
+<footer><h6>ver.1.1.0</h6></footer>
+
+<script>
+$.ajax({
+	method:"GET",
+	url:"https://script.google.com/macros/s/AKfycbygAUlp1i3kSd5F1De46I9EQhRft-bYi5SlN_iLwXEzW1auJAFkR-X-Ox0-sgGX5_lo/exec",
+	dataType:"JSON",
+	success:function(res){
+  		// console.log(res);
+  		document.getElementById("output").innerHTML = res;
+  	},
+  	error:function(err){
+  		console.log(err);
+  		document.getElementById("output").innerHTML = err;
+  	},
+});
+</script>
+
+</body>
+</html>
