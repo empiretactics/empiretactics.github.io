@@ -25,7 +25,7 @@
 <script>
 $.ajax({
 	method:"GET",
-	url:"https://script.google.com/macros/s/AKfycbzBgjU-gQgddJrcVlUxsijoDl0SVGJqSD9MVBWNX5Za_zM6284DUXit9ewkf6WN1mQEyQ/exec",
+	url:"https://script.google.com/macros/s/AKfycbw6moSjY3VsBimE6lA7UQC8ynBfnq3CR8upFXfho-Q2lG09TlubM_EA3oJlxEB6O_uQOw/exec",
 	dataType:"JSON",
 	success:function(res){
   		// console.log(res);
@@ -34,6 +34,11 @@ $.ajax({
   		document.getElementById("output3").innerHTML = res[2];
   		document.getElementById("output4").innerHTML = res[3];
   		document.getElementById("output5").innerHTML = res[4];
+  		document.getElementById("img1").src = res[5];
+  		document.getElementById("img2").src = res[6];
+  		document.getElementById("img3").src = res[7];
+  		document.getElementById("img4").src = res[8];
+  		document.getElementById("img5").src = res[9];
   	},
   	error:function(err){
   		console.log(err);
@@ -48,6 +53,14 @@ $.ajax({
 
 <div id="table">
     <table border = "1">
+        <tr>
+            <td><img id="img1"></td>
+            <td><img id="img2"></td>
+            <td><img id="img3"></td>
+            <td><img id="img4"></td>
+            <td><img id="img5"></td>
+            
+        </tr>
         <tr>
             <td id="output1"></td>
             <td id="output2"></td>
