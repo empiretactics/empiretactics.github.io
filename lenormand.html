@@ -1,16 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
-<title>雷諾曼</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <title>雷諾曼</title>
+    <meta http-equiv="content-type">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        div {text-align: center; margin: auto;}
+        th {width: 200px; height: 50px;}
+        td {width: 200px; height: 50px;}
+        img {width: 100%; height: auto;}
+        table {margin: auto; text-align: center;}
+        p {width: 50%; margin: auto;}
+        input {width: 90%; height: auto;}
+        .alert {
+            width: 50%;
+            margin: 0 25%;
+        }
+    </style>
 </head>
-
-<body>
-<h2 id="output"></h2>
-<p>請刷新頁面重抽</p>
-</br></br>
-<footer><h6>ver.1.1.0</h6></footer>
 
 <script>
 $.ajax({
@@ -19,7 +29,11 @@ $.ajax({
 	dataType:"JSON",
 	success:function(res){
   		// console.log(res);
-  		document.getElementById("output").innerHTML = res;
+  		document.getElementById("output1").innerHTML = res[0];
+  		document.getElementById("output2").innerHTML = res[1];
+  		document.getElementById("output3").innerHTML = res[2];
+  		document.getElementById("output4").innerHTML = res[3];
+  		document.getElementById("output5").innerHTML = res[4];
   	},
   	error:function(err){
   		console.log(err);
@@ -28,5 +42,28 @@ $.ajax({
 });
 </script>
 
+<body class="p-3 mb-2 bg-dark text-white">
+    <h4 id="output"></h4>
+<br><br>
+
+<div id="table">
+    <table border = "1">
+        <tr>
+            <td id="output1"></td>
+            <td id="output2"></td>
+            <td id="output3"></td>
+            <td id="output4"></td>
+            <td id="output5"></td>
+        </tr>
+    </table>
+</div><br>
+
+<div id="refresh">
+    <p>
+        <a href = "https://empiretactics.github.io/lenormand">點擊刷新</a>
+    </p>
+</div>
+
+<footer><h6>ver.1.1.0</h6></footer>
 </body>
 </html>
