@@ -65,9 +65,8 @@
             dataType: "JSON",
             success: function(res) {
                 // console.log(res);
-                output = "output";
-                img = "img";
                 setList(res);
+                outpost(res);
             },
             error: function(err) {
                 console.log(err);
@@ -79,72 +78,71 @@
 
 <script>
     function setList(data) {
-        for (var i = 0; i < 5; i++) {
-            var j = i + 1;
+        let output = "output";
+        let img = "img";
+        for (let i = 0; i < 5; i++) {
+            let j = i + 1;
             document.getElementById(output + j).innerHTML = data[i];
             document.getElementById(img + j).src = data[i + 5];
         }
     }
 </script>
 
-<!--<script>-->
-    <!--function outpost() {-->
-        <!--var text = "";-->
+<script>
+    function outpost(data) {
+        let text = "<table border='1'>";
+        for (let i = 0; i < 2; i++) {
+            text += "<tr>";
+            for (let j = 0; j < 5; j++) {
+                if (i % 2) {
+                    text += "<td>" + data[j] + "</td>";
+                } else {
+                    text += "<td><img src=" + data[j + 5] + "></td>";
+                }
+            }
+            text += "</tr>";
+        }
+        text += "</table>";
 
-        <!--text += "<table border='1'>";-->
-        <!--for (var i = 0; i < 2; i++) {-->
-            <!--text += "<tr>";-->
-            <!--for (var j = 0; j < 5; j++) {-->
-                <!--var m = j + 1;-->
-                <!--if (i%2) {-->
-                    <!--text += "<td><img id='img'"+ m +"></td>";-->
-                <!--} else {-->
-                    <!--text += "<td id='output'"+ m +"></td>";-->
-                <!--}-->
-            <!--}-->
-            <!--text += "</tr>";-->
-        <!--}-->
-        <!--text += "</table>";-->
-
-        <!--document.getElementById("outpost").innerHTML = text;-->
-    <!--}-->
-<!--</script>-->
+        document.getElementById("outpost").innerHTML = text;
+    }
+</script>
 
 <body class="p-3 mb-2 bg-dark text-white">
-<h4 id="error"></h4>
-<br><br>
+    <h4 id="error"></h4>
+    <br><br>
 
-<!--<div id="outpost">-->
-<!--</div>-->
+    <div id="outpost">
+    </div>
 
-<div id="table">
-    <table border="1">
-        <tr>
-            <td><img id="img1"></td>
-            <td><img id="img2"></td>
-            <td><img id="img3"></td>
-            <td><img id="img4"></td>
-            <td><img id="img5"></td>
-        </tr>
-        <tr>
-            <td id="output1"></td>
-            <td id="output2"></td>
-            <td id="output3"></td>
-            <td id="output4"></td>
-            <td id="output5"></td>
-        </tr>
-    </table>
-</div><br>
+    <div id="table">
+        <table border="1">
+            <tr>
+                <td><img id="img1"></td>
+                <td><img id="img2"></td>
+                <td><img id="img3"></td>
+                <td><img id="img4"></td>
+                <td><img id="img5"></td>
+            </tr>
+            <tr>
+                <td id="output1"></td>
+                <td id="output2"></td>
+                <td id="output3"></td>
+                <td id="output4"></td>
+                <td id="output5"></td>
+            </tr>
+        </table>
+    </div><br>
 
-<div id="refresh">
-    <p>
-        <a href="https://empiretactics.github.io/taste">點擊刷新</a>
-    </p>
-</div>
+    <div id="refresh">
+        <p>
+            <a href="https://empiretactics.github.io/taste">點擊刷新</a>
+        </p>
+    </div>
 
-<footer>
-    <h6>ver.1.1.1</h6>
-</footer>
+    <footer>
+        <h6>ver.1.1.0</h6>
+    </footer>
 </body>
 
 </html>
