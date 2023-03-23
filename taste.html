@@ -52,8 +52,8 @@
 </head>
 
 <script>
-    let x = 3; // 橫列
-    let y = 3; // 直行
+    let x = 6; // 橫列
+    let y = 6; // 直行
     $(function() {
         getList();
     });
@@ -63,8 +63,11 @@
     function getList() {
         $.ajax({
             method: "GET",
-            url: "https://script.google.com/macros/s/AKfycbxiBZircRPwwY37MBXc_E2RZouOHgS7Iq7peQOUkHpjBy5K6xWmRY3weWiVARt7glIIFQ/exec?n=9",
+            url: "https://script.google.com/macros/s/AKfycbxiBZircRPwwY37MBXc_E2RZouOHgS7Iq7peQOUkHpjBy5K6xWmRY3weWiVARt7glIIFQ/exec",
             dataType: "JSON",
+            data: {
+                n: x * y,
+            },
             success: function(res) {
                 // console.log(res);
                 outpost(res);
