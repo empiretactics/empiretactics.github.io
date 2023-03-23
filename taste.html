@@ -52,6 +52,8 @@
 </head>
 
 <script>
+    let x = 3; // 橫列
+    let y = 3; // 直行
     $(function() {
         getList();
     });
@@ -61,11 +63,10 @@
     function getList() {
         $.ajax({
             method: "GET",
-            url: "https://script.google.com/macros/s/AKfycbxiBZircRPwwY37MBXc_E2RZouOHgS7Iq7peQOUkHpjBy5K6xWmRY3weWiVARt7glIIFQ/exec?n=5",
+            url: "https://script.google.com/macros/s/AKfycbxiBZircRPwwY37MBXc_E2RZouOHgS7Iq7peQOUkHpjBy5K6xWmRY3weWiVARt7glIIFQ/exec?n=9",
             dataType: "JSON",
             success: function(res) {
                 // console.log(res);
-                setList(res);
                 outpost(res);
             },
             error: function(err) {
@@ -77,27 +78,17 @@
 </script>
 
 <script>
-    function setList(data) {
-        let output = "output";
-        let img = "img";
-        for (let i = 0; i < 5; i++) {
-            let j = i + 1;
-            document.getElementById(output + j).innerHTML = data[i];
-            document.getElementById(img + j).src = data[i + 5];
-        }
-    }
-</script>
-
-<script>
     function outpost(data) {
         let text = "<table border='1'>";
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < (2 * y); i++) {
             text += "<tr>";
-            for (let j = 0; j < 5; j++) {
+            for (let j = 0; j < x; j++) {
+                let n = j + y * (i - 1) / 2;
+                let m = j + y * i / 2 + x * y;
                 if (i % 2) {
-                    text += "<td>" + data[j] + "</td>";
+                    text += "<td>" + data[n] + "</td>";
                 } else {
-                    text += "<td><img src=" + data[j + 5] + "></td>";
+                    text += "<td><img src=" + data[m] + "></td>";
                 }
             }
             text += "</tr>";
@@ -109,40 +100,20 @@
 </script>
 
 <body class="p-3 mb-2 bg-dark text-white">
-    <h4 id="error"></h4>
-    <br><br>
+<h4 id="error"></h4>
+<br><br>
 
-    <div id="outpost">
-    </div>
+<div id="outpost"></div>
 
-    <div id="table">
-        <table border="1">
-            <tr>
-                <td><img id="img1"></td>
-                <td><img id="img2"></td>
-                <td><img id="img3"></td>
-                <td><img id="img4"></td>
-                <td><img id="img5"></td>
-            </tr>
-            <tr>
-                <td id="output1"></td>
-                <td id="output2"></td>
-                <td id="output3"></td>
-                <td id="output4"></td>
-                <td id="output5"></td>
-            </tr>
-        </table>
-    </div><br>
+<div id="refresh">
+    <p>
+        <a href="https://empiretactics.github.io/taste">點擊刷新</a>
+    </p>
+</div>
 
-    <div id="refresh">
-        <p>
-            <a href="https://empiretactics.github.io/taste">點擊刷新</a>
-        </p>
-    </div>
-
-    <footer>
-        <h6>ver.1.1.0</h6>
-    </footer>
+<footer>
+    <h6>ver.1.1.1</h6>
+</footer>
 </body>
 
 </html>
