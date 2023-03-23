@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <title>雷諾曼</title>
     <meta http-equiv="content-type">
@@ -24,36 +24,38 @@
 
 <script>
 $.ajax({
-	method:"GET",
-	url:"https://script.google.com/macros/s/AKfycbzBgjU-gQgddJrcVlUxsijoDl0SVGJqSD9MVBWNX5Za_zM6284DUXit9ewkf6WN1mQEyQ/exec",
-	dataType:"JSON",
-	success:function(res){
-  		// console.log(res);
-  		document.getElementById("output1").innerHTML = res[0];
-  		document.getElementById("output2").innerHTML = res[1];
-  		document.getElementById("output3").innerHTML = res[2];
-  		document.getElementById("output4").innerHTML = res[3];
-  		document.getElementById("output5").innerHTML = res[4];
-  	},
-  	error:function(err){
-  		console.log(err);
-  		document.getElementById("output").innerHTML = err;
-  	},
+    method:"GET",
+    url:"https://script.google.com/macros/s/AKfycbxiBZircRPwwY37MBXc_E2RZouOHgS7Iq7peQOUkHpjBy5K6xWmRY3weWiVARt7glIIFQ/exec?n=5",
+    dataType:"JSON",
+    success:function(res){
+        // console.log(res);
+        var output = "output";
+        var img = "img";
+        for (i = 0; i < 5; i++) {
+            var j = i+1;
+            document.getElementById("output" . j).innerHTML = res[i];
+            document.getElementById("img" . j).src = res[i+5];
+        }
+    },
+    error:function(err){
+        console.log(err);
+        document.getElementById("error").innerHTML = err;
+    },
 });
 </script>
 
 <body class="p-3 mb-2 bg-dark text-white">
-    <h4 id="output"></h4>
+    <h4 id="error"></h4>
 <br><br>
 
 <div id="table">
     <table border = "1">
         <tr>
-            <td><img src="https://i.pinimg.com/originals/56/4b/79/564b7969d684b5a1465e8002b393ce9e.jpg">img1</td>
-            <td><img src="{{ $movieData->movieImg }}">img2</td>
-            <td><img src="{{ $movieData->movieImg }}">img3</td>
-            <td><img src="{{ $movieData->movieImg }}">img4</td>
-            <td><img src="{{ $movieData->movieImg }}">img5</td>
+            <td><img id="img1"></td>
+            <td><img id="img2"></td>
+            <td><img id="img3"></td>
+            <td><img id="img4"></td>
+            <td><img id="img5"></td>
         </tr>
         <tr>
             <td id="output1"></td>
@@ -67,7 +69,7 @@ $.ajax({
 
 <div id="refresh">
     <p>
-        <a href = "https://empiretactics.github.io/taste">點擊刷新</a>
+        <a href = "https://empiretactics.github.io/lenormand">點擊刷新</a>
     </p>
 </div>
 
