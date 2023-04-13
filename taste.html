@@ -108,10 +108,10 @@
 
     function getList() {
         // 鎖
-        lock = true;
         if (lock) {
             return;
         }
+        lock = true;
 
         // 取得輸入參數
         let searchItem = $("#search_item_list").val();
