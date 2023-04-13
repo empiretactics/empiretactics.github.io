@@ -40,7 +40,7 @@
         }
 
         input {
-            width: 90%;
+            width: 50%;
             height: auto;
         }
 
@@ -51,23 +51,74 @@
     </style>
 </head>
 
-<script>
-    let x = 6; // 橫列
-    let y = 6; // 直行
-    $(function() {
-        getList();
-    });
-</script>
+<body class="p-3 mb-2 bg-dark text-white">
+    <div id="error">
+        <h3 id="error"></h3>
+    </div>
+
+    <div>
+        <label for="search_item_list">請選擇 張數&nbsp</label>
+        <select id="search_item_list">
+            <option value="o">1</option>
+            <option value="e">5</option>
+            <option value="n">9</option>
+        </select>
+        <input type="button" value="抽牌" onclick="getList()">
+    </div>
+
+    <div id="outpost"></div>
+
+    <div id="refresh">
+        <!-- <a href="https://empiretactics.github.io/lenormand">點擊刷新</a> -->
+    </div>
+
+    <footer>
+        <h6>ver.1.1.1</h6>
+    </footer>
+</body>
+
 
 <script>
+    let x = 0; // 橫列
+    let y = 0; // 直行
+
+    $(function() {
+    });
+
     function getList() {
+        // 取得輸入參數
+        let searchItem = $("#search_item_list").val();
+
+        switch (searchItem) {
+            case 'o':
+                x = 1; // 橫列
+                y = 1; // 直行
+                break;
+            case 'e':
+                x = 5; // 橫列
+                y = 1; // 直行
+                break;
+            case 'n':
+                x = 3; // 橫列
+                y = 3; // 直行
+                break;
+        }
+        // 執行API
+        getLenormandList();
+    }
+
+    <!--ajax-->
+    /**
+     * 取 雷諾曼列表
+     */
+    function getLenormandList() {
         $.ajax({
             method: "GET",
             url: "https://script.google.com/macros/s/AKfycbxiBZircRPwwY37MBXc_E2RZouOHgS7Iq7peQOUkHpjBy5K6xWmRY3weWiVARt7glIIFQ/exec",
-            dataType: "JSON",
             data: {
                 n: x * y,
             },
+            dataType: "JSON",
             success: function(res) {
                 // console.log(res);
                 outpost(res);
@@ -78,9 +129,11 @@
             },
         });
     }
-</script>
 
-<script>
+    <!--組HTML語法-->
+    /**
+     * 雷諾曼列表 回傳 整理顯示
+     */
     function outpost(data) {
         let text = "<table border='1'>";
         for (let i = 0; i < (2 * y); i++) {
@@ -101,22 +154,5 @@
         document.getElementById("outpost").innerHTML = text;
     }
 </script>
-
-<body class="p-3 mb-2 bg-dark text-white">
-<h4 id="error"></h4>
-<br><br>
-
-<div id="outpost"></div>
-
-<div id="refresh">
-    <p>
-        <a href="https://empiretactics.github.io/taste">點擊刷新</a>
-    </p>
-</div>
-
-<footer>
-    <h6>ver.1.1.1</h6>
-</footer>
-</body>
 
 </html>
