@@ -6,6 +6,7 @@
     <meta http-equiv="content-type">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="refresh" content="5">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
@@ -76,21 +77,7 @@
         <h3 id="error"></h3>
     </div>
 
-    <div>
-        <h5>
-            <label for="search_item_list">請選擇 張數&nbsp</label>
-            <select id="search_item_list">
-            <option value="o">1</option>
-            <option value="e">5</option>
-            <option value="n">9</option>
-        </select>
-        </h5>
-        <input type="button" value="抽牌" onclick="getList()">
-    </div><br/>
-
-    <div id="outpost"></div>
-
-    <div id="loading" class="loading" style="display: none"></div>
+    <div id="loading" class="loading"></div>
 
     <footer>
         <h6>ver.1.2.0</h6>
@@ -107,32 +94,9 @@
     });
 
     function getList() {
-        // 鎖
-        if (lock) {
-            return;
-        }
-        lock = true;
-
-        // 取得輸入參數
-        let searchItem = $("#search_item_list").val();
-
-        switch (searchItem) {
-            case 'o':
-                x = 1; // 橫列
-                y = 1; // 直行
-                break;
-            case 'e':
-                x = 5; // 橫列
-                y = 1; // 直行
-                break;
-            case 'n':
-                x = 3; // 橫列
-                y = 3; // 直行
-                break;
-        }
-
-        // 執行API
-        getYoukoBook();
+        let datetime = new Date();
+        $("#loading").empty();
+        $("#loading").append(datetime);
     }
 
     <!--ajax-->
