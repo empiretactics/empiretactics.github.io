@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>角色簡介</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        .character {
+            border: 2px solid orange;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .character img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .sound-button {
+            background-color: #ffa500;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .sound-button:hover {
+            background-color: #ff8500;
+        }
+    </style>
+</head>
+<body>
+    <div class="character">
+        <img src="character_image.jpg" alt="角色圖片">
+        <h2>角色名稱</h2>
+        <p>這裡是角色的簡介內容。</p>
+        <button class="sound-button" onclick="playSound()">播放角色音效</button>
+    </div>
+
+    <script>
+        function playSound() {
+            // 這裡可以加入播放音效的程式碼，例如使用 <audio> 標籤或其他播放方式
+            // 當按鈕被點擊時，可以添加特效，例如改變按鈕顏色或其他動畫效果
+            document.querySelector('.sound-button').style.backgroundColor = 'red';
+        }
+    </script>
+</body>
+</html>
