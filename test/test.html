@@ -1,21 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分頁示例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .tab {
+            display: none;
+        }
+        .active-tab {
+            display: block;
+        }
+        .tabs-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .tab-button {
+            background-color: #ffa500;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tab-button:not(:last-child) {
+            margin-right: 10px;
+        }
+    </style>
+</head>
 <body>
+    <div class="tabs-wrapper">
+        <button class="tab-button" onclick="showTab(0)">分頁 1</button>
+        <button class="tab-button" onclick="showTab(1)">分頁 2</button>
+        <button class="tab-button" onclick="showTab(2)">分頁 3</button>
+    </div>
+    <div class="tab active-tab">
+        <!-- 分頁 1 內容 -->
+        <h2>分頁 1 內容</h2>
+        <p>這裡是分頁 1 的內容。</p>
+    </div>
+    <div class="tab">
+        <!-- 分頁 2 內容 -->
+        <h2>分頁 2 內容</h2>
+        <p>這裡是分頁 2 的內容。</p>
+    </div>
+    <div class="tab">
+        <!-- 分頁 3 內容 -->
+        <h2>分頁 3 內容</h2>
+        <p>這裡是分頁 3 的內容。</p>
+    </div>
 
-<audio controls autoplay>
-  <source src="https://www.runoob.com/try/demo_source/horse.ogg" type="audio/ogg">
-  <source src="horse.mp3" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio>
-
-<audio controls autoplay>
-  <source src="horse.ogg" type="audio/ogg">
-  <source src="horse.mp3" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio>
-
-
-
+    <script>
+        // JavaScript 部分
+        function showTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach((tab, index) => {
+                if (index === tabIndex) {
+                    tab.classList.add('active-tab');
+                } else {
+                    tab.classList.remove('active-tab');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
-
