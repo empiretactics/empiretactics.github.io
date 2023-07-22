@@ -36,6 +36,7 @@
         .right-block {
             width: 50%;
             padding: 20px;
+            background-color: white;
         }
         .left-block img {
             max-width: 100%;
@@ -62,11 +63,11 @@
             justify-content: center;
             margin-top: 20px;
             border: 1px solid orange;
+            border-bottom: 1px solid white;
             padding: 10px;
             margin-bottom: 10px;
             border-radius: 10px;
         }
-        /* 新增 .sound-button-wrapper:last-child 的樣式，用來移除最後一個按鈕區塊的下方 margin */
         .sound-button-wrapper:last-child {
             margin-bottom: 0;
         }
@@ -113,11 +114,16 @@
                     }
 
                     const [audioFile, audioName] = setting.split(':');
+                    const buttonWrapper = document.createElement('div');
+                    buttonWrapper.className = 'sound-button-wrapper';
+
                     const button = document.createElement('button');
                     button.className = 'sound-button';
                     button.textContent = audioName.trim();
                     button.onclick = () => playSound(audioFile.trim());
-                    soundButtonsWrapper.appendChild(button);
+
+                    buttonWrapper.appendChild(button);
+                    soundButtonsWrapper.appendChild(buttonWrapper);
                 });
             });
 
