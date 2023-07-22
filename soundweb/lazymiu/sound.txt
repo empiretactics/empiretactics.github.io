@@ -1,3 +1,4 @@
+# 音效路徑:音效名稱
 ../sound/5MA.mp3:5MA
 ../sound/5MA_left.mp3:5MA_left
 ../sound/10MA.mp3:10MA
@@ -10,6 +11,3 @@
 ../sound/10MA.mp3:10MA
 ../sound/10MA.mp3:10MA
 ../sound/10MA.mp3:10MA
-#音效1.mp3:音效1
-#音效2.mp3:音效2
-#音效3.mp3:音效3
