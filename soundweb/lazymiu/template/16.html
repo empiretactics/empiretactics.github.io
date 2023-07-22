@@ -53,10 +53,15 @@
             border-radius: 4px;
             cursor: pointer;
         }
+        .sound-button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
         .sound-button:hover {
             background-color: #ff8500;
         }
-        .sound-buttons-wrapper {
+/*         .sound-buttons-wrapper {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -69,6 +74,11 @@
             border: 2px solid;
             border-image: linear-gradient(135deg, #ffa500, #fff, #ffa500);
             border-image-slice: 1;
+        } */
+        .sound-button-wrapper-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
         }
         .sound-button-wrapper:last-child {
             margin-bottom: 0;
@@ -156,7 +166,9 @@
         }
 
         // 添加音效按鈕點擊事件
+        const soundButtonsWrapper = document.getElementById('soundButtonsWrapper');
         const soundButtons = document.querySelectorAll('.sound-button');
+
         soundButtons.forEach(button => {
             button.addEventListener('click', function () {
                 // 當點擊音效按鈕時，先暫停 audio 播放，再播放目前按鈕對應的音效
@@ -165,7 +177,30 @@
             });
         });
 
-        // 可以添加更多播放音效的函式
+        // 自動調整音效按鈕排列
+        window.addEventListener('resize', arrangeButtons);
+
+        function arrangeButtons() {
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'sound-button-container';
+
+            let currentRow = null;
+            soundButtons.forEach(button => {
+                if (currentRow === null || currentRow.clientWidth + button.clientWidth + 20 > soundButtonsWrapper.clientWidth) {
+                    currentRow = document.createElement('div');
+                    currentRow.className = 'sound-button-wrapper-row';
+                    buttonContainer.appendChild(currentRow);
+                }
+
+                currentRow.appendChild(button);
+            });
+
+            soundButtonsWrapper.innerHTML = '';
+            soundButtonsWrapper.appendChild(buttonContainer);
+        }
+
+        // 網頁載入完成後首次排列音效按鈕
+        window.addEventListener('load', arrangeButtons);
     </script>
 </body>
 </html>
