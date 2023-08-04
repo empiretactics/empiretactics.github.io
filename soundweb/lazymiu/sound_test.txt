@@ -2,12 +2,4 @@
 5MA：../sound/5MA.mp3
 5MA_left：../sound/5MA_left.mp3
 10MA：../sound/10MA.mp3
-10MA：../sound/10MA.mp3
-10MA：../sound/10MA.mp3
-10MA：../sound/10MA.mp3
-10MA：../sound/10MA.mp3
-10MA：../sound/10MA.mp3
-10MA：../sound/10MA.mp3
-10MA：../sound/10MA.mp3
-10MA：../sound/10MA.mp3
-10MA：../sound/10MA.mp3
+起床重睡：../sound/起床重睡.mp3
