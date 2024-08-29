@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姆林</title>
+    <style>
+        @font-face {
+            font-family: 'YaPiFan';
+            src: url('../fonts/ya_pi_fan.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'YaPiFan', Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: left;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        #leftBoxContainer {
+            width: 50%; /* 調整為50%，使左邊區塊和右邊區塊一樣大 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        #topTextContainer {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .currentText {
+            width: 48%;
+            height: 40px;
+            border: 2px solid #000;
+            background-color: #f9f9f9;
+            font-size: 18px;
+            font-weight: bold;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 10px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #leftBox, #rightBox {
+            width: 100%;
+            height: 200px;
+            border: 2px solid #000; /* 調整為 2px 黑色邊框 */
+            font-size: 18px;
+            font-weight: bold;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        #leftBox {
+            background-color: #f9f9f9;
+        }
+
+        #rightBoxContainer {
+            width: 50%; /* 調整為50%，使左邊區塊和右邊區塊一樣大 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #rightBox {
+            background-color: #fff; /* 確保背景為白色 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #000; /* 新增邊框 */
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            font-size: 18px;
+            border: none;
+            resize: none;
+            padding: 0px; /* 設置內邊距為0 */
+            box-sizing: border-box;
+        }
+
+        #buttonContainer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .custom-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            outline: none;
+        }
+
+        .button-white {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .button-black {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .color-white {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .color-black {
+            background-color: #000;
+            color: #fff;
+        }
+
+        #footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+        }
+
+        .additionalBox {
+            width: 100%;
+            height: 100px;
+            border: 2px solid #000;
+            background-color: #f9f9f9;
+            font-size: 16px;
+            font-weight: bold;
+            box-sizing: border-box;
+            padding: 10px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px; /* 在上方欄位和下方欄位之間添加間距 */
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div id="leftBoxContainer">
+        <div id="topTextContainer">
+            <div id="currentTextLeft" class="currentText color-white">角色1</div>
+            <div id="currentTextRight" class="currentText color-white">角色2</div>
+        </div>
+        <div class="additionalBox color-white">額外上方欄位</div>
+        <div id="leftBox"></div>
+        <div class="additionalBox">額外下方欄位</div>
+    </div>
+    <div id="rightBoxContainer">
+        <div id="rightBox">
+            <textarea id="rightText">預設文字在這裡</textarea>
+        </div>
+    </div>
+</div>
+
+<div id="buttonContainer">
+    <button onclick="resetAndRun()">重新對戰</button>
+</div>
+
+<div id="additionalButtonContainer">
+    <button class="custom-button button-white" onclick="applyWhiteButton()">Light</button>
+    <button class="custom-button button-black" onclick="applyBlackButton()">Dark</button>
+</div>
+
+<div id="footer">
+    &copy; 2024 Empiretactics. All Rights Reserved.
+</div>
+
+<!-- <script type="text/javascript" src="path-to/bower_components/crypto-js/crypto-js.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script> -->
+<script>
+    const leftBox = document.getElementById('leftBox');
+    const rightText = document.getElementById('rightText');
+    const defaultText = '一\n二\n三\n四\n五\n六\n七\n八\n九\n十\nferret';
+    const currentTextLeft = document.getElementById('currentTextLeft');
+    const currentTextRight = document.getElementById('currentTextRight');
+
+    let currentIndex = 0;
+    let intervalId;
+
+    const attackTexts = [
+        '擊殺',
+        '刀了',
+        '開槍'
+    ];
+    let texts;
+    let newTexts;
+
+    function displayText() {
+        // 輸入兩個人物character
+        let in1 = Math.floor(Math.random() * texts.length);
+        let character1 = texts[in1];
+        // tmp
+        texts[in1] = texts[texts.length - 1];
+        texts.pop();
+
+        if (texts.length > 0) {
+            let character2 = texts[Math.floor(Math.random() * texts.length)];
+            leftBox.innerHTML += character2;
+            leftBox.innerHTML += attackTexts[Math.floor(Math.random() * attackTexts.length)];
+            leftBox.innerHTML += character1;
+            leftBox.innerHTML += '<br>';
+            currentTextLeft.textContent = character2; // 更新左邊當前印出的文字
+            currentTextRight.textContent = character1; // 更新右邊當前印出的文字
+            // currentIndex++;
+        } else {
+            leftBox.innerHTML += character1;
+            clearInterval(intervalId);
+        }
+        leftBox.scrollTop = leftBox.scrollHeight;
+    }
+
+    function resetAndRun() {
+        clearInterval(intervalId);
+        leftBox.innerHTML = '';
+        currentTextLeft.textContent = '當前印出的文字'; // 重置左邊當前印出的文字顯示
+        currentTextRight.textContent = '當前印出的文字'; // 重置右邊當前印出的文字顯示
+        currentIndex = 0;
+        texts = rightText.value.split('\n');
+        intervalId = setInterval(displayText, 1000);
+    }
+
+    function saveToCookie() {
+        const text = rightText.value;
+        const expireDate = new Date();
+        expireDate.setFullYear(expireDate.getFullYear() + 10); // 設置 Cookie 10 年後過期
+        document.cookie = `rightText=${encodeURIComponent(text)}; expires=${expireDate.toUTCString()}; path=/`;
+    }
+
+    function loadFromCookie() {
+        const name = 'rightText=';
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                rightText.value = c.substring(name.length, c.length);
+                return;
+            }
+        }
+        // 如果沒有找到，則顯示預設文字
+        rightText.value = defaultText;
+    }
+
+    // 在頁面加載時從 Cookie 載入內容
+    window.onload = function() {
+        loadFromCookie();
+    };
+
+    // 監聽 textarea 的變更事件，並更新 Cookie
+    rightText.addEventListener('input', function() {
+        saveToCookie();
+    });
+
+    function applyWhiteButton() {
+        document.body.style.backgroundColor = '#fff';
+        document.body.style.color = '#000';
+        document.querySelectorAll('.custom-button').forEach(div => {
+            button.classList.remove('color-white', 'color-black');
+            button.classList.add('color-white');
+        });
+    }
+
+    function applyBlackButton() {
+        document.body.style.backgroundColor = '#000';
+        document.body.style.color = '#fff';
+        document.querySelectorAll('.custom-button').forEach(div => {
+            button.classList.remove('color-white', 'color-black');
+            button.classList.add('color-black');
+        });
+    }
+</script>
+
+</body>
+</html>
