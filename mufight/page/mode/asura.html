@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <icon></icon>
     <title>姆林</title>
     <style>
         @font-face {
@@ -12,7 +13,6 @@
 
         body {
             font-family: 'YaPiFan', Arial, sans-serif;
-            background-color: #f0f0f0;
             text-align: left;
             margin: 0;
             padding: 0;
@@ -29,39 +29,32 @@
             width: 50%; /* 調整為50%，使左邊區塊和右邊區塊一樣大 */
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            margin-right: 5px;
         }
 
         #topTextContainer {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
         }
 
         .currentText {
             width: 48%;
             height: 40px;
-            border: 2px solid #000;
-            background-color: #f9f9f9;
             font-size: 18px;
             font-weight: bold;
             overflow: hidden;
             box-sizing: border-box;
             padding: 10px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
         }
 
         #leftBox, #rightBox {
             width: 100%;
             height: 200px;
-            border: 2px solid #000; /* 調整為 2px 黑色邊框 */
             font-size: 18px;
             font-weight: bold;
             overflow-y: auto;
             box-sizing: border-box;
-        }
-
-        #leftBox {
-            background-color: #f9f9f9;
         }
 
         #rightBoxContainer {
@@ -69,14 +62,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-left: 5px;
         }
 
         #rightBox {
-            background-color: #fff; /* 確保背景為白色 */
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #000; /* 新增邊框 */
         }
 
         textarea {
@@ -114,14 +106,27 @@
             color: #fff;
         }
 
+        .button-zi {
+            background-color: #8f8;
+            color: #f88;
+        }
+
         .color-white {
             background-color: #fff;
+            border: 2px solid #000;
             color: #000;
         }
 
         .color-black {
             background-color: #000;
+            border: 2px solid #fff;
             color: #fff;
+        }
+
+        .color-zi {
+            background-color: #8f8;
+            border: 2px solid #f88;
+            color: #f88;
         }
 
         #footer {
@@ -136,32 +141,30 @@
         .additionalBox {
             width: 100%;
             height: 100px;
-            border: 2px solid #000;
-            background-color: #f9f9f9;
             font-size: 16px;
             font-weight: bold;
             box-sizing: border-box;
             padding: 10px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
             margin-bottom: 10px; /* 在上方欄位和下方欄位之間添加間距 */
         }
     </style>
 </head>
-<body>
+<body class="color">
 
 <div id="container">
     <div id="leftBoxContainer">
         <div id="topTextContainer">
-            <div id="currentTextLeft" class="currentText color-white">角色1</div>
-            <div id="currentTextRight" class="currentText color-white">角色2</div>
+            <div id="currentTextLeft" class="currentText color">角色1</div>
+            <div id="currentTextRight" class="currentText color">角色2</div>
         </div>
-        <div class="additionalBox color-white">額外上方欄位</div>
-        <div id="leftBox"></div>
-        <div class="additionalBox">額外下方欄位</div>
+        <div class="additionalBox color">還沒想到這邊什麼</div>
+        <div id="leftBox" class="color"></div>
+        <div class="additionalBox color">這邊也是</div>
     </div>
     <div id="rightBoxContainer">
         <div id="rightBox">
-            <textarea id="rightText">預設文字在這裡</textarea>
+            <textarea id="rightText" class="color"></textarea>
         </div>
     </div>
 </div>
@@ -171,11 +174,13 @@
 </div>
 
 <div id="additionalButtonContainer">
-    <button class="custom-button button-white" onclick="applyWhiteButton()">Light</button>
-    <button class="custom-button button-black" onclick="applyBlackButton()">Dark</button>
+    <button class="custom-button button-white" onclick="applyButtonWhite()">Light</button>
+    <button class="custom-button button-black" onclick="applyButtonBlack()">Dark</button>
+    <button class="custom-button button-zi" onclick="applyButtonZi()">吱</button>
 </div>
 
 <div id="footer">
+    ver.0.1.1 Alpha</br>
     &copy; 2024 Empiretactics. All Rights Reserved.
 </div>
 
@@ -188,6 +193,7 @@
     const defaultText = '一\n二\n三\n四\n五\n六\n七\n八\n九\n十\nferret';
     const currentTextLeft = document.getElementById('currentTextLeft');
     const currentTextRight = document.getElementById('currentTextRight');
+    const cls = ['color-white', 'color-black', 'color-zi'];
 
     let currentIndex = 0;
     let intervalId;
@@ -196,10 +202,10 @@
         '擊殺',
         '刀了',
         '開槍'
-    ];
+        ];
     let texts;
     let newTexts;
-
+    
     function displayText() {
         // 輸入兩個人物character
         let in1 = Math.floor(Math.random() * texts.length);
@@ -227,10 +233,11 @@
     function resetAndRun() {
         clearInterval(intervalId);
         leftBox.innerHTML = '';
-        currentTextLeft.textContent = '當前印出的文字'; // 重置左邊當前印出的文字顯示
-        currentTextRight.textContent = '當前印出的文字'; // 重置右邊當前印出的文字顯示
+        currentTextLeft.textContent = ''; // 重置左邊當前印出的文字顯示
+        currentTextRight.textContent = ''; // 重置右邊當前印出的文字顯示
         currentIndex = 0;
         texts = rightText.value.split('\n');
+        filterSpace();
         intervalId = setInterval(displayText, 1000);
     }
 
@@ -259,9 +266,20 @@
         rightText.value = defaultText;
     }
 
+    function filterSpace() {
+        let tmp = [];
+        texts.forEach(v => {
+            if (v.trim() !== '') {
+                tmp.push(v);
+            }
+        });
+        texts=tmp;
+    }
+
     // 在頁面加載時從 Cookie 載入內容
     window.onload = function() {
         loadFromCookie();
+        applyButtonWhite();
     };
 
     // 監聽 textarea 的變更事件，並更新 Cookie
@@ -269,21 +287,24 @@
         saveToCookie();
     });
 
-    function applyWhiteButton() {
-        document.body.style.backgroundColor = '#fff';
-        document.body.style.color = '#000';
-        document.querySelectorAll('.custom-button').forEach(div => {
-            button.classList.remove('color-white', 'color-black');
-            button.classList.add('color-white');
+    function applyButtonWhite() {
+        document.querySelectorAll('.color').forEach(style => {
+            style.classList.remove(...cls);
+            style.classList.add('color-white');
         });
     }
 
-    function applyBlackButton() {
-        document.body.style.backgroundColor = '#000';
-        document.body.style.color = '#fff';
-        document.querySelectorAll('.custom-button').forEach(div => {
-            button.classList.remove('color-white', 'color-black');
-            button.classList.add('color-black');
+    function applyButtonBlack() {
+        document.querySelectorAll('.color').forEach(style => {
+            style.classList.remove(...cls);
+            style.classList.add('color-black');
+        });
+    }
+
+    function applyButtonZi() {
+        document.querySelectorAll('.color').forEach(style => {
+            style.classList.remove(...cls);
+            style.classList.add('color-zi');
         });
     }
 </script>
