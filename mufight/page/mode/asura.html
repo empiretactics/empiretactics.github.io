@@ -144,23 +144,24 @@
             font-size: 16px;
             font-weight: bold;
             box-sizing: border-box;
+            overflow-y: auto;
             padding: 10px;
             margin-top: 10px;
             margin-bottom: 10px; /* 在上方欄位和下方欄位之間添加間距 */
         }
     </style>
 </head>
-<body class="color">
 
+<body class="color">
 <div id="container">
     <div id="leftBoxContainer">
         <div id="topTextContainer">
             <div id="currentTextLeft" class="currentText color">角色1</div>
             <div id="currentTextRight" class="currentText color">角色2</div>
         </div>
-        <div class="additionalBox color">還沒想到這邊什麼</div>
+        <div id="topBox" class="additionalBox color"></div>
         <div id="leftBox" class="color"></div>
-        <div class="additionalBox color">這邊也是</div>
+        <div id="downBox" class="additionalBox color"></div>
     </div>
     <div id="rightBoxContainer">
         <div id="rightBox">
@@ -174,27 +175,26 @@
 </div>
 
 <div id="additionalButtonContainer">
-    <button class="custom-button button-white" onclick="applyButtonWhite()">Light</button>
-    <button class="custom-button button-black" onclick="applyButtonBlack()">Dark</button>
-    <button class="custom-button button-zi" onclick="applyButtonZi()">吱</button>
+    <button class="custom-button button-white" onclick="applyButton('white')">Light</button>
+    <button class="custom-button button-black" onclick="applyButton('black')">Dark</button>
+    <button class="custom-button button-zi" onclick="applyButton('zi')">吱</button>
 </div>
 
 <div id="footer">
     ver.0.1.1 Alpha</br>
     &copy; 2024 Empiretactics. All Rights Reserved.
 </div>
+</body>
 
-<!-- <script type="text/javascript" src="path-to/bower_components/crypto-js/crypto-js.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script> -->
 <script>
     const leftBox = document.getElementById('leftBox');
     const rightText = document.getElementById('rightText');
-    const defaultText = '一\n二\n三\n四\n五\n六\n七\n八\n九\n十\nferret';
+    const topBox = document.getElementById('topBox');
+    const downBox = document.getElementById('downBox');
     const currentTextLeft = document.getElementById('currentTextLeft');
     const currentTextRight = document.getElementById('currentTextRight');
-    const cls = ['color-white', 'color-black', 'color-zi'];
 
+    const defaultText = '一\n二\n三\n四\n五\n六\n七\n八\n九\n十';
     let currentIndex = 0;
     let intervalId;
 
@@ -208,26 +208,31 @@
     
     function displayText() {
         // 輸入兩個人物character
-        let in1 = Math.floor(Math.random() * texts.length);
+        let in1 = arrRandom(texts);
         let character1 = texts[in1];
         // tmp
         texts[in1] = texts[texts.length - 1];
         texts.pop();
+        // texts[in1] = texts.pop();
 
         if (texts.length > 0) {
-            let character2 = texts[Math.floor(Math.random() * texts.length)];
+            let character2 = texts[arrRandom(texts)];
             leftBox.innerHTML += character2;
-            leftBox.innerHTML += attackTexts[Math.floor(Math.random() * attackTexts.length)];
+            leftBox.innerHTML += attackTexts[arrRandom(attackTexts)];
             leftBox.innerHTML += character1;
             leftBox.innerHTML += '<br>';
             currentTextLeft.textContent = character2; // 更新左邊當前印出的文字
             currentTextRight.textContent = character1; // 更新右邊當前印出的文字
             // currentIndex++;
         } else {
-            leftBox.innerHTML += character1;
+            downBox.innerHTML += "給 ";
+            downBox.innerHTML += character1;
+            downBox.innerHTML += " 一罐啤酒";
+            downBox.innerHTML += '<br>';
             clearInterval(intervalId);
         }
         leftBox.scrollTop = leftBox.scrollHeight;
+        downBox.scrollTop = downBox.scrollHeight;
     }
 
     function resetAndRun() {
@@ -237,19 +242,56 @@
         currentTextRight.textContent = ''; // 重置右邊當前印出的文字顯示
         currentIndex = 0;
         texts = rightText.value.split('\n');
-        filterSpace();
+        texts = filterSpace(texts);
         intervalId = setInterval(displayText, 1000);
     }
 
-    function saveToCookie() {
-        const text = rightText.value;
-        const expireDate = new Date();
-        expireDate.setFullYear(expireDate.getFullYear() + 10); // 設置 Cookie 10 年後過期
-        document.cookie = `rightText=${encodeURIComponent(text)}; expires=${expireDate.toUTCString()}; path=/`;
+    // 在頁面加載時從 Cookie 載入內容
+    window.onload = function() {
+        loadFromCookie(rightText);
+        applyButton('white');
+    };
+
+    // 監聽 textarea 的變更事件，並更新 Cookie
+    rightText.addEventListener('input', function() {
+        saveToCookie(rightText);
+    });
+</script>
+
+<script class="css">
+    const cls = ['color-white', 'color-black', 'color-zi'];
+
+    function applyButton(color) {
+        document.querySelectorAll('.color').forEach(style => {
+            style.classList.remove(...cls);
+            style.classList.add('color-' + color);
+        });
+    }
+</script>
+
+<script class="plugin">
+    function arrRandom(arr) {
+        return Math.floor(Math.random() * arr.length);
     }
 
-    function loadFromCookie() {
-        const name = 'rightText=';
+    function filterSpace(arr) {
+        let tmp = [];
+        arr.forEach(v => {
+            if (v.trim() !== '') {
+                tmp.push(v);
+            }
+        });
+        return tmp;
+    }
+
+    function saveToCookie(obj) {
+        const expireDate = new Date();
+        expireDate.setFullYear(expireDate.getFullYear() + 10); // 設置 Cookie 10 年後過期
+        document.cookie = `${obj.id}=${encodeURIComponent(obj.value)}; expires=${expireDate.toUTCString()}; path=/`;
+    }
+
+    function loadFromCookie(obj) {
+        const name = obj.id + '=';
         const decodedCookie = decodeURIComponent(document.cookie);
         const ca = decodedCookie.split(';');
         for (let i = 0; i < ca.length; i++) {
@@ -258,56 +300,13 @@
                 c = c.substring(1);
             }
             if (c.indexOf(name) === 0) {
-                rightText.value = c.substring(name.length, c.length);
+                obj.value = c.substring(name.length, c.length);
                 return;
             }
         }
         // 如果沒有找到，則顯示預設文字
-        rightText.value = defaultText;
-    }
-
-    function filterSpace() {
-        let tmp = [];
-        texts.forEach(v => {
-            if (v.trim() !== '') {
-                tmp.push(v);
-            }
-        });
-        texts=tmp;
-    }
-
-    // 在頁面加載時從 Cookie 載入內容
-    window.onload = function() {
-        loadFromCookie();
-        applyButtonWhite();
-    };
-
-    // 監聽 textarea 的變更事件，並更新 Cookie
-    rightText.addEventListener('input', function() {
-        saveToCookie();
-    });
-
-    function applyButtonWhite() {
-        document.querySelectorAll('.color').forEach(style => {
-            style.classList.remove(...cls);
-            style.classList.add('color-white');
-        });
-    }
-
-    function applyButtonBlack() {
-        document.querySelectorAll('.color').forEach(style => {
-            style.classList.remove(...cls);
-            style.classList.add('color-black');
-        });
-    }
-
-    function applyButtonZi() {
-        document.querySelectorAll('.color').forEach(style => {
-            style.classList.remove(...cls);
-            style.classList.add('color-zi');
-        });
+        obj.value = defaultText;
     }
 </script>
 
-</body>
 </html>
