@@ -322,12 +322,11 @@
             }
             if (c.indexOf(name) === 0) {
                 obj.value = c.substring(name.length, c.length);
-                return obj;
+                return;
             }
         }
         // 如果沒有找到，則顯示預設文字
         obj.value = defaultText;
-        return obj;
     }
 </script>
 
