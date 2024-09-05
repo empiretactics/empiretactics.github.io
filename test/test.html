@@ -269,7 +269,7 @@
 
     // 在頁面加載時從 Cookie 載入內容
     window.onload = function() {
-        loadFromCookie();
+        loadFromCookie(rightText);
         applyButton('white');
     };
 
@@ -322,11 +322,12 @@
             }
             if (c.indexOf(name) === 0) {
                 obj.value = c.substring(name.length, c.length);
-                return;
+                return obj;
             }
         }
         // 如果沒有找到，則顯示預設文字
         obj.value = defaultText;
+        return obj;
     }
 </script>
 
