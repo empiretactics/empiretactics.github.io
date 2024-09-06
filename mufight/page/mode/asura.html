@@ -211,9 +211,8 @@
         let in1 = arrRandom(texts);
         let character1 = texts[in1];
         // tmp
-        texts[in1] = texts[texts.length - 1];
-        texts.pop();
-        // texts[in1] = texts.pop();
+        texts[in1] = texts[0];
+        texts.shift();
 
         if (texts.length > 0) {
             let character2 = texts[arrRandom(texts)];
