@@ -1,75 +1,333 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>分頁示例</title>
+    <icon></icon>
+    <title>姆林</title>
     <style>
+        @font-face {
+            font-family: 'YaPiFan';
+            src: url('../fonts/ya_pi_fan.ttf') format('truetype');
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
+            font-family: 'YaPiFan', Arial, sans-serif;
+            text-align: left;
             margin: 0;
             padding: 0;
         }
-        .tab {
-            display: none;
-        }
-        .active-tab {
-            display: block;
-        }
-        .tabs-wrapper {
+
+        #container {
             display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        #leftBoxContainer {
+            width: 50%; /* 調整為50%，使左邊區塊和右邊區塊一樣大 */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-right: 5px;
+        }
+
+        #topTextContainer {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .currentText {
+            width: 48%;
+            height: 40px;
+            font-size: 18px;
+            font-weight: bold;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        #leftBox, #rightBox {
+            width: 100%;
+            height: 200px;
+            font-size: 18px;
+            font-weight: bold;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        #rightBoxContainer {
+            width: 50%; /* 調整為50%，使左邊區塊和右邊區塊一樣大 */
+            display: flex;
+            align-items: center;
             justify-content: center;
+            margin-left: 5px;
+        }
+
+        #rightBox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            font-size: 18px;
+            border: none;
+            resize: none;
+            padding: 0px; /* 設置內邊距為0 */
+            box-sizing: border-box;
+        }
+
+        #buttonContainer {
+            text-align: center;
             margin-top: 20px;
         }
-        .tab-button {
-            background-color: #ffa500;
-            color: white;
-            border: none;
+
+        .custom-button {
             padding: 10px 20px;
             font-size: 16px;
-            border-radius: 4px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            margin: 5px;
+            outline: none;
         }
-        .tab-button:not(:last-child) {
-            margin-right: 10px;
+
+        .button-white {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .button-black {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .button-zi {
+            background-color: #8f8;
+            color: #f88;
+        }
+
+        .color-white {
+            background-color: #fff;
+            border: 2px solid #000;
+            color: #000;
+        }
+
+        .color-black {
+            background-color: #000;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+        .color-zi {
+            background-color: #8f8;
+            border: 2px solid #f88;
+            color: #f88;
+        }
+
+        #footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+        }
+
+        .additionalBox {
+            width: 100%;
+            height: 100px;
+            font-size: 16px;
+            font-weight: bold;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px; /* 在上方欄位和下方欄位之間添加間距 */
         }
     </style>
 </head>
-<body>
-    <div class="tabs-wrapper">
-        <button class="tab-button" onclick="showTab(0)">分頁 1</button>
-        <button class="tab-button" onclick="showTab(1)">分頁 2</button>
-        <button class="tab-button" onclick="showTab(2)">分頁 3</button>
-    </div>
-    <div class="tab active-tab">
-        <!-- 分頁 1 內容 -->
-        <h2>分頁 1 內容</h2>
-        <p>這裡是分頁 1 的內容。</p>
-    </div>
-    <div class="tab">
-        <!-- 分頁 2 內容 -->
-        <h2>分頁 2 內容</h2>
-        <p>這裡是分頁 2 的內容。</p>
-    </div>
-    <div class="tab">
-        <!-- 分頁 3 內容 -->
-        <h2>分頁 3 內容</h2>
-        <p>這裡是分頁 3 的內容。</p>
-    </div>
 
-    <script>
-        // JavaScript 部分
-        function showTab(tabIndex) {
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach((tab, index) => {
-                if (index === tabIndex) {
-                    tab.classList.add('active-tab');
-                } else {
-                    tab.classList.remove('active-tab');
-                }
-            });
-        }
-    </script>
+<body class="color">
+
+<div id="container">
+    <div id="leftBoxContainer">
+        <div id="topTextContainer">
+            <div id="currentTextLeft" class="currentText color">角色1</div>
+            <div id="currentTextRight" class="currentText color">角色2</div>
+        </div>
+        <div id="topBox" class="additionalBox color"></div>
+        <div id="leftBox" class="color"></div>
+        <div id="downBox" class="additionalBox color"></div>
+    </div>
+    <div id="rightBoxContainer">
+        <div id="rightBox">
+            <textarea id="rightText" class="color"></textarea>
+        </div>
+    </div>
+</div>
+
+<div id="buttonContainer">
+    <button onclick="resetAndRun()">重新對戰</button>
+</div>
+
+<div id="additionalButtonContainer">
+    <button class="custom-button button-white" onclick="applyButton('white')">Light</button>
+    <button class="custom-button button-black" onclick="applyButton('black')">Dark</button>
+    <button class="custom-button button-zi" onclick="applyButton('zi')">吱</button>
+</div>
+
+<div id="footer">
+    ver.0.1.1 Alpha</br>
+    &copy; 2024 Empiretactics. All Rights Reserved.
+</div>
 </body>
+
+<!-- <script type="text/javascript" src="path-to/bower_components/crypto-js/crypto-js.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script> -->
+<script>
+    const leftBox = document.getElementById('leftBox');
+    const rightText = document.getElementById('rightText');
+    const topBox = document.getElementById('topBox');
+    const downBox = document.getElementById('downBox');
+    const currentTextLeft = document.getElementById('currentTextLeft');
+    const currentTextRight = document.getElementById('currentTextRight');
+
+    const defaultText = '一\n二\n三\n四\n五\n六\n七\n八\n九\n十\nferret';
+    let currentIndex = 0;
+    let intervalId;
+
+    const attackTexts = [
+        '擊殺',
+        '刀了',
+        '開槍'
+        ];
+    let texts;
+    let newTexts;
+    
+    function displayText() {
+        // 輸入兩個人物character
+        let in1 = arrRandom(texts);
+        let character1 = texts[in1];
+        // tmp
+        texts[in1] = texts[texts.length - 1];
+        texts.pop();
+        // texts[in1] = texts.pop();
+
+        if (texts.length > 0) {
+            let character2 = texts[arrRandom(texts)];
+            leftBox.innerHTML += character2;
+            leftBox.innerHTML += attackTexts[arrRandom(attackTexts)];
+            leftBox.innerHTML += character1;
+            leftBox.innerHTML += '<br>';
+            currentTextLeft.textContent = character2; // 更新左邊當前印出的文字
+            currentTextRight.textContent = character1; // 更新右邊當前印出的文字
+            // currentIndex++;
+        } else {
+            downBox.innerHTML += "給 ";
+            downBox.innerHTML += character1;
+            downBox.innerHTML += " 一罐啤酒";
+            downBox.innerHTML += '<br>';
+            clearInterval(intervalId);
+        }
+        leftBox.scrollTop = leftBox.scrollHeight;
+        downBox.scrollTop = downBox.scrollHeight;
+    }
+
+    function resetAndRun() {
+        clearInterval(intervalId);
+        leftBox.innerHTML = '';
+        currentTextLeft.textContent = ''; // 重置左邊當前印出的文字顯示
+        currentTextRight.textContent = ''; // 重置右邊當前印出的文字顯示
+        currentIndex = 0;
+        texts = rightText.value.split('\n');
+        texts = filterSpace(texts);
+        intervalId = setInterval(displayText, 1000);
+    }
+
+    // function loadFromCookie() {
+    //     const name = 'rightText=';
+    //     const decodedCookie = decodeURIComponent(document.cookie);
+    //     const ca = decodedCookie.split(';');
+    //     for (let i = 0; i < ca.length; i++) {
+    //         let c = ca[i];
+    //         while (c.charAt(0) === ' ') {
+    //             c = c.substring(1);
+    //         }
+    //         if (c.indexOf(name) === 0) {
+    //             rightText.value = c.substring(name.length, c.length);
+    //             return;
+    //         }
+    //     }
+    //     // 如果沒有找到，則顯示預設文字
+    //     rightText.value = defaultText;
+    // }
+
+    // 在頁面加載時從 Cookie 載入內容
+    window.onload = function() {
+        loadFromCookie(rightText);
+        applyButton('white');
+    };
+
+    // 監聽 textarea 的變更事件，並更新 Cookie
+    rightText.addEventListener('input', function() {
+        saveToCookie(rightText);
+    });
+</script>
+
+<script class="css">
+    const cls = ['color-white', 'color-black', 'color-zi'];
+
+    function applyButton(color) {
+        document.querySelectorAll('.color').forEach(style => {
+            style.classList.remove(...cls);
+            style.classList.add('color-' + color);
+        });
+    }
+</script>
+
+<script class="plugin">
+    function arrRandom(arr) {
+        return Math.floor(Math.random() * arr.length);
+    }
+
+    function filterSpace(arr) {
+        let tmp = [];
+        arr.forEach(v => {
+            if (v.trim() !== '') {
+                tmp.push(v);
+            }
+        });
+        return tmp;
+    }
+
+    function saveToCookie(obj) {
+        const expireDate = new Date();
+        expireDate.setFullYear(expireDate.getFullYear() + 10); // 設置 Cookie 10 年後過期
+        document.cookie = `${obj.id}=${encodeURIComponent(obj.value)}; expires=${expireDate.toUTCString()}; path=/`;
+    }
+
+    function loadFromCookie(obj) {
+        const name = obj.id + '=';
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                obj.value = c.substring(name.length, c.length);
+                return;
+            }
+        }
+        // 如果沒有找到，則顯示預設文字
+        obj.value = defaultText;
+    }
+</script>
+
 </html>
