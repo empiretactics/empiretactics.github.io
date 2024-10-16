@@ -1,5 +1,5 @@
 #  音效名稱：音效路徑
-笑2：../sound/笑2.mp3
-笑3：../sound/笑3.mp3
-擦玻璃：../sound/擦玻璃.mp3
-2ㄏ：../sound/2ㄏ.mp3
+笑2：../sound/笑2.MP3
+笑3：../sound/笑3.MP3
+擦玻璃：../sound/擦玻璃.MP3
+2ㄏ：../sound/2ㄏ.MP3
