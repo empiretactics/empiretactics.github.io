@@ -3,3 +3,4 @@
 笑3：../sound/笑3.mp3
 擦玻璃：../sound/擦玻璃.mp3
 2ㄏ：../sound/2ㄏ.mp3
+笑5：../sound/笑5.mp3
