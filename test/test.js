@@ -14,6 +14,11 @@ const attackTexts = [
     '刀了',
     '開槍'
 ];
+const skillTexts = [
+    '擊殺',
+    '刀了',
+    '開槍'
+];
 let texts;
 let newTexts;
 
