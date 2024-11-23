@@ -66,7 +66,7 @@ rightText.addEventListener('input', function() {
     setCookie(rightText);
 });
 
-const cls = ['color-white', 'color-black', 'color-zi'];
+const cls = ['color-white', 'color-black', 'color-zizi', 'color-cloudcat', 'color-mumu'];
 
 function changeColor(color) {
     document.querySelectorAll('.color').forEach(style => {

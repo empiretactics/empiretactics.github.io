@@ -98,9 +98,19 @@ textarea {
     color: #fff;
 }
 
-.button-zi {
-    background-color: #8f8;
-    color: #f88;
+.button-zizi {
+    background-color: #81ac71;
+    color: #e5d97f;
+}
+
+.button-cloudcat {
+    background-color: #2a2655;
+    color: #69a0dd;
+}
+
+.button-mumu {
+    background-color: #f1ddde;
+    color: #891414;
 }
 
 .color-white {
@@ -115,10 +125,22 @@ textarea {
     color: #fff;
 }
 
-.color-zi {
-    background-color: #8f8;
-    border: 2px solid #f88;
-    color: #f88;
+.color-zizi {
+    background-color: #81ac71;
+    border: 2px solid #e5d97f;
+    color: #e5d97f;
+}
+
+.color-cloudcat {
+    background-color: #2a2655;
+    border: 2px solid #69a0dd;
+    color: #69a0dd;
+}
+
+.color-mumu {
+    background-color: #f1ddde;
+    border: 2px solid #891414;
+    color: #891414;
 }
 
 #footer {
