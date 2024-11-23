@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>圖奇聊天室自動發送留言</title>
     <icon></icon>
-    <title>twitch_auto_comment</title>
     <style>
         @font-face {
             font-family: 'YaPiFan';
@@ -25,7 +26,7 @@
             margin: 20px auto;
         }
 
-        #leftBoxContainer {
+        #leftBoxContainer, #rightBoxContainer {
             width: 50%; /* 調整為50%，使左邊區塊和右邊區塊一樣大 */
             display: flex;
             flex-direction: column;
@@ -33,22 +34,7 @@
             margin-right: 5px;
         }
 
-        #topTextContainer {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .currentText {
-            width: 48%;
-            height: 40px;
-            font-size: 18px;
-            font-weight: bold;
-            overflow: hidden;
-            box-sizing: border-box;
-            padding: 10px;
-        }
-
-        #leftBox, #rightBox {
+        #leftBox, #rightBox{
             width: 100%;
             height: 200px;
             font-size: 18px;
@@ -57,15 +43,16 @@
             box-sizing: border-box;
         }
 
-        #rightBoxContainer {
-            width: 50%; /* 調整為50%，使左邊區塊和右邊區塊一樣大 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 5px;
+        #rightBoxTop {
+            width: 100%;
+            height: 100px;
+            font-size: 36px;
+            font-weight: bold;
+            overflow-y: auto;
+            box-sizing: border-box;
         }
 
-        #rightBox {
+        #leftBox, #rightBoxTop {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -106,9 +93,19 @@
             color: #fff;
         }
 
-        .button-zi {
-            background-color: #8f8;
-            color: #f88;
+        .button-zizi {
+            background-color: #81ac71;
+            color: #e5d97f;
+        }
+
+        .button-cloudcat {
+            background-color: #2a2655;
+            color: #69a0dd;
+        }
+
+        .button-mumu {
+            background-color: #f1ddde;
+            color: #891414;
         }
 
         .color-white {
@@ -123,10 +120,22 @@
             color: #fff;
         }
 
-        .color-zi {
-            background-color: #8f8;
-            border: 2px solid #f88;
-            color: #f88;
+        .color-zizi {
+            background-color: #81ac71;
+            border: 2px solid #e5d97f;
+            color: #e5d97f;
+        }
+
+        .color-cloudcat {
+            background-color: #2a2655;
+            border: 2px solid #69a0dd;
+            color: #69a0dd;
+        }
+
+        .color-mumu {
+            background-color: #f1ddde;
+            border: 2px solid #891414;
+            color: #891414;
         }
 
         #footer {
@@ -137,58 +146,49 @@
             border-top: 1px solid #ddd;
             margin-top: 20px;
         }
-
-        .additionalBox {
-            width: 100%;
-            height: 100px;
-            font-size: 16px;
-            font-weight: bold;
-            box-sizing: border-box;
-            overflow-y: auto;
-            padding: 10px;
-            margin-top: 10px;
-            margin-bottom: 10px; /* 在上方欄位和下方欄位之間添加間距 */
-        }
     </style>
 </head>
 
 <body class="color">
+
+<div>
+    <h3 id="error"></h3>
+</div>
+
 <div id="container">
     <div id="leftBoxContainer">
-        <!-- <div id="topTextContainer">
-            <div id="currentTextLeft" class="currentText color">角色1</div>
-            <div id="currentTextRight" class="currentText color">角色2</div>
-        </div> -->
-        <!-- <div id="topBox" class="additionalBox color"></div> -->
-        <label name="12">
-            我的：
-            <input type="text" id="myid" name="Course" size="15"/>
-        </label>
-        <label name="23">
-            對方：
-            <input type="text" id="yourid" name="Course" size="15"/>
-        </label>
-        冷卻時間：
-        次數：
-        <div id="leftBox" class="color"></div>
-        <div id="downBox" class="additionalBox color"></div>
+        我的Cookie auth-token：
+        <input type="text" id="TACmyid" class="color"/>
+        對方channelID：
+        <input type="text" id="TACyourid" class="color"/>
+        冷卻(min)：
+        <input type="number" id="TACcd" class="color" min="1" pattern="\d*"/>
+        次數：(為0不限制)
+        <input type="number" id="TACtimes" class="color" min="0" pattern="\d*"/>
+        輸入：
+        <div id="leftBox">
+            <textarea id="TACtext" class="color"></textarea>
+        </div>
     </div>
     <div id="rightBoxContainer">
-        <div id="rightBox">
-            <textarea id="TACrightText" class="color"></textarea>
-        </div>
+        下次發送(s)：
+        <div id="rightBoxTop" class="color"></div>
+        計數器：
+        <div id="rightBox" class="color"></div>
     </div>
 </div>
 
 <div id="buttonContainer">
     <button onclick="resetAndRun()">開始</button>
-    <button onclick="resetAndRun()">停止</button>
+    <button onclick="stop()">停止</button>
 </div>
 
 <div id="additionalButtonContainer">
     <button class="custom-button button-white" onclick="changeColor('white')">Light</button>
     <button class="custom-button button-black" onclick="changeColor('black')">Dark</button>
-    <button class="custom-button button-zi" onclick="changeColor('zi')">吱</button>
+    <button class="custom-button button-zizi" onclick="changeColor('zizi')">吱吱</button>
+    <button class="custom-button button-cloudcat" onclick="changeColor('cloudcat')">雲貓</button>
+    <button class="custom-button button-mumu" onclick="changeColor('mumu')">姆姆</button>
 </div>
 
 <div id="footer">
@@ -198,85 +198,107 @@
 </body>
 
 <script>
-    const leftBox = document.getElementById('leftBox');
-    const TACrightText = document.getElementById('TACrightText');
-    const topBox = document.getElementById('topBox');
-    const downBox = document.getElementById('downBox');
-    const currentTextLeft = document.getElementById('currentTextLeft');
-    const currentTextRight = document.getElementById('currentTextRight');
+    const TACmyid = document.getElementById('TACmyid');
+    const TACyourid = document.getElementById('TACyourid');
+    const TACcd = document.getElementById('TACcd');
+    const TACtimes = document.getElementById('TACtimes');
+    const TACtext = document.getElementById('TACtext');
+
+    const rightBoxTop = document.getElementById('rightBoxTop');
+    const rightBox = document.getElementById('rightBox');
 
     const defaultText = '';
     let currentIndex = 0;
+    let timer = 0;
     let intervalId;
+    let intervalId2;
 
-    const attackTexts = [
-        '擊殺',
-        '刀了',
-        '開槍'
-    ];
+    const data0 = '{"query":"mutation SendChatMessage($input: SendChatMessageInput!) {sendChatMessage(input: $input) {dropReason message {id}}}","variables":{"input":{"channelID":"';
+    const data1 = '","message":"';
+    const data2 = '"}}}';
+
     let texts;
-    let newTexts;
+    let oauth;
 
-    function displayText() {
-        // 輸入兩個人物character
-        let in1 = arrRandom(texts);
-        let character1 = texts[in1];
-        // tmp
-        texts[in1] = texts[0];
-        texts.shift();
-
-        if (texts.length > 0) {
-            let character2 = texts[arrRandom(texts)];
-            leftBox.innerHTML += character2;
-            leftBox.innerHTML += attackTexts[arrRandom(attackTexts)];
-            leftBox.innerHTML += character1;
-            leftBox.innerHTML += '<br>';
-            currentTextLeft.textContent = character2; // 更新左邊當前印出的文字
-            currentTextRight.textContent = character1; // 更新右邊當前印出的文字
-            // currentIndex++;
-        } else {
-            downBox.innerHTML += character1;
-            downBox.innerHTML += ' 活下來了';
-            downBox.innerHTML += '<br>';
+    function rightBoxText() {
+        currentIndex++;
+        TwitchAutoComment();
+        rightBox.innerHTML += currentIndex;
+        rightBox.innerHTML += '<br>';
+        if (TACtimes.value === currentIndex) {
+            currentIndex = 0;
             clearInterval(intervalId);
+            clearInterval(intervalId2);
         }
-        leftBox.scrollTop = leftBox.scrollHeight;
-        downBox.scrollTop = downBox.scrollHeight;
+        rightBox.scrollTop = rightBox.scrollHeight;
+    }
+
+    function rightBoxTopText() {
+        if (timer === 0) {
+            timer = TACcd.value * 60;
+        }
+        rightBoxTop.innerHTML = timer;
+        timer--;
     }
 
     function resetAndRun() {
+        // 初始化
         clearInterval(intervalId);
-        leftBox.innerHTML = '';
-        currentTextLeft.textContent = ''; // 重置左邊當前印出的文字顯示
-        currentTextRight.textContent = ''; // 重置右邊當前印出的文字顯示
+        clearInterval(intervalId2);
+        rightBox.innerHTML = '';
+        rightBoxTop.innerHTML = '';
         currentIndex = 0;
-        texts = TACrightText.value.split('\n');
+        timer = 0;
+        // 設定
+        texts = TACtext.value.split('\n');
         texts = filterSpace(texts);
-        intervalId = setInterval(displayText, 1000);
+        texts = data0 + TACyourid.value + data1 + texts + data2;
+        oauth = "OAuth " + TACmyid.value;
+        // 執行
+        rightBoxText(); // 先執行一次
+        intervalId = setInterval(rightBoxText, TACcd.value * 60 * 1000);
+        intervalId2 = setInterval(rightBoxTopText, 1000); // 每隔 1 秒執行
+    }
+
+    function stop() {
+        clearInterval(intervalId);
+        clearInterval(intervalId2);
     }
 
     // 在頁面加載時從 Cookie 載入內容
     window.onload = function() {
-        getCookie(TACrightText);
+        getCookie(TACmyid);
+        getCookie(TACyourid);
+        getCookie(TACcd);
+        getCookie(TACtimes);
+        getCookie(TACtext);
         changeColor('white');
     };
 
     // 監聽 textarea 的變更事件，並更新 Cookie
-    TACrightText.addEventListener('input', function() {
-        setCookie(TACrightText);
+    TACmyid.addEventListener('input', function() {
+        setCookie(TACmyid);
+    });
+    TACyourid.addEventListener('input', function() {
+        setCookie(TACyourid);
+    });
+    TACcd.addEventListener('input', function() {
+        setCookie(TACcd);
+    });
+    TACtimes.addEventListener('input', function() {
+        setCookie(TACtimes);
+    });
+    TACtext.addEventListener('input', function() {
+        setCookie(TACtext);
     });
 
-    const cls = ['color-white', 'color-black', 'color-zi'];
+    const cls = ['color-white', 'color-black', 'color-zizi', 'color-cloudcat', 'color-mumu'];
 
     function changeColor(color) {
         document.querySelectorAll('.color').forEach(style => {
             style.classList.remove(...cls);
             style.classList.add('color-' + color);
         });
-    }
-
-    function arrRandom(arr) {
-        return Math.floor(Math.random() * arr.length);
     }
 
     function filterSpace(arr) {
@@ -311,6 +333,27 @@
         }
         // 如果沒有找到，則顯示預設文字
         obj.value = defaultText;
+    }
+
+    function TwitchAutoComment() {
+        $.ajax({
+            url: "https://gql.twitch.tv/gql",
+            type: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": oauth,
+            },
+            data: texts,
+            dataType: "JSON",
+            success: function(res) {
+                console.log(res);
+                $("#error").append(res);
+            },
+            error: function(err) {
+                console.log(err);
+                $("#error").append(err);
+            },
+        });
     }
 </script>
 
