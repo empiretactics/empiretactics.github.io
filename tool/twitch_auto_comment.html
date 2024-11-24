@@ -233,18 +233,18 @@
     let currentTime;
 
     function rightBoxCounterText() {
-        currentIndex++;
         TwitchAutoComment();
+        timer = TACcd.value * 60;
+        currentIndex++;
         rightBoxCounter.innerHTML += currentIndex;
         rightBoxCounter.innerHTML += ' ';
         rightBoxCounter.innerHTML += currentTime;
         rightBoxCounter.innerHTML += '<br>';
         if (TACtimes.value === currentIndex) {
-            currentIndex = 0;
             clearInterval(intervalId);
             clearInterval(intervalId2);
+            currentIndex = 0;
         }
-        timer = TACcd.value * 60;
         rightBoxCounter.scrollTop = rightBoxCounter.scrollHeight;
     }
 
