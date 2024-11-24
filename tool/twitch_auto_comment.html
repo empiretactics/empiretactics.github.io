@@ -244,13 +244,14 @@
             clearInterval(intervalId);
             clearInterval(intervalId2);
         }
+        timer = TACcd.value * 60;
         rightBoxCounter.scrollTop = rightBoxCounter.scrollHeight;
     }
 
     function rightBoxTopText() {
-        if (timer === 0) {
-            timer = TACcd.value * 60;
-        }
+        // if (timer === 0) {
+        //     timer = TACcd.value * 60;
+        // }
         rightBoxTop.innerHTML = timer;
         timer--;
     }
