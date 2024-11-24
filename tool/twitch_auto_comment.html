@@ -34,10 +34,19 @@
             margin-right: 5px;
         }
 
-        #leftBox, #rightBox{
+        #leftBox, #rightBoxCounter {
             width: 100%;
             height: 200px;
             font-size: 18px;
+            font-weight: bold;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        #rightBoxTime {
+            width: 100%;
+            height: 48px;
+            font-size: 24px;
             font-weight: bold;
             overflow-y: auto;
             box-sizing: border-box;
@@ -52,7 +61,7 @@
             box-sizing: border-box;
         }
 
-        #leftBox, #rightBoxTop {
+        #leftBox, #rightBoxTop, #rightBoxTime {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -150,7 +159,6 @@
 </head>
 
 <body class="color">
-
 <div>
     <h3 id="error"></h3>
 </div>
@@ -163,7 +171,7 @@
         <input type="text" id="TACyourid" class="color"/>
         冷卻(min)：
         <input type="number" id="TACcd" class="color" min="1" pattern="\d*"/>
-        次數：(為0不限制)
+        次數：(為空不限制)
         <input type="number" id="TACtimes" class="color" min="0" pattern="\d*"/>
         輸入：
         <div id="leftBox">
@@ -171,10 +179,12 @@
         </div>
     </div>
     <div id="rightBoxContainer">
+        時間：
+        <div id="rightBoxTime" class="color"></div>
         下次發送(s)：
         <div id="rightBoxTop" class="color"></div>
         計數器：
-        <div id="rightBox" class="color"></div>
+        <div id="rightBoxCounter" class="color"></div>
     </div>
 </div>
 
@@ -192,7 +202,7 @@
 </div>
 
 <div id="footer">
-    ver.0.1.1 Alpha</br>
+    ver.1.1</br>
     &copy; 2024 Empiretactics. All Rights Reserved.
 </div>
 </body>
@@ -204,8 +214,9 @@
     const TACtimes = document.getElementById('TACtimes');
     const TACtext = document.getElementById('TACtext');
 
+    const rightBoxTime = document.getElementById('rightBoxTime');
     const rightBoxTop = document.getElementById('rightBoxTop');
-    const rightBox = document.getElementById('rightBox');
+    const rightBoxCounter = document.getElementById('rightBoxCounter');
 
     const defaultText = '';
     let currentIndex = 0;
@@ -219,18 +230,21 @@
 
     let texts;
     let oauth;
+    let currentTime;
 
-    function rightBoxText() {
+    function rightBoxCounterText() {
         currentIndex++;
         TwitchAutoComment();
-        rightBox.innerHTML += currentIndex;
-        rightBox.innerHTML += '<br>';
+        rightBoxCounter.innerHTML += currentIndex;
+        rightBoxCounter.innerHTML += ' ';
+        rightBoxCounter.innerHTML += currentTime;
+        rightBoxCounter.innerHTML += '<br>';
         if (TACtimes.value === currentIndex) {
             currentIndex = 0;
             clearInterval(intervalId);
             clearInterval(intervalId2);
         }
-        rightBox.scrollTop = rightBox.scrollHeight;
+        rightBoxCounter.scrollTop = rightBoxCounter.scrollHeight;
     }
 
     function rightBoxTopText() {
@@ -245,7 +259,7 @@
         // 初始化
         clearInterval(intervalId);
         clearInterval(intervalId2);
-        rightBox.innerHTML = '';
+        rightBoxCounter.innerHTML = '';
         rightBoxTop.innerHTML = '';
         currentIndex = 0;
         timer = 0;
@@ -255,8 +269,8 @@
         texts = data0 + TACyourid.value + data1 + texts + data2;
         oauth = "OAuth " + TACmyid.value;
         // 執行
-        rightBoxText(); // 先執行一次
-        intervalId = setInterval(rightBoxText, TACcd.value * 60 * 1000);
+        rightBoxCounterText(); // 先執行一次
+        intervalId = setInterval(rightBoxCounterText, TACcd.value * 60 * 1000);
         intervalId2 = setInterval(rightBoxTopText, 1000); // 每隔 1 秒執行
     }
 
@@ -355,6 +369,21 @@
             },
         });
     }
+
+    // 時間控制
+    function updateDateTime() {
+        const now = new Date();
+        const date = now.toLocaleDateString(); // 當地日期
+        const time = now.toLocaleTimeString(); // 當地時間
+        currentTime = `${date} ${time}`
+        rightBoxTime.innerHTML = currentTime;
+    }
+
+    // 每秒更新一次
+    setInterval(updateDateTime, 1000);
+
+    // 初始化顯示
+    updateDateTime();
 </script>
 
 </html>
