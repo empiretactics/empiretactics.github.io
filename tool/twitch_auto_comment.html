@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <title>圖奇聊天室自動發送留言</title>
-    <icon></icon>
+    <title>圖奇聊天室自動簽到/留言</title>
+    <link rel="icon" type="image/png" href="src/icon/IMG_7581.PNG">
     <style>
         @font-face {
-            font-family: 'YaPiFan';
-            src: url('../fonts/ya_pi_fan.ttf') format('truetype');
+            font-family: 'LXGW WenKai TC';
+            src: url('https://fonts.googleapis.com/css?family=LXGW+WenKai+TC') format('truetype');
         }
 
         body {
-            font-family: 'YaPiFan', Arial, sans-serif;
+            font-family: 'LXGW WenKai TC', Arial, sans-serif;
             text-align: left;
             margin: 0;
             padding: 0;
@@ -77,7 +77,7 @@
             box-sizing: border-box;
         }
 
-        #buttonContainer {
+        #buttonContainer, #addButtonContainer {
             text-align: center;
             margin-top: 20px;
         }
@@ -92,61 +92,6 @@
             outline: none;
         }
 
-        .button-white {
-            background-color: #fff;
-            color: #000;
-        }
-
-        .button-black {
-            background-color: #000;
-            color: #fff;
-        }
-
-        .button-zizi {
-            background-color: #81ac71;
-            color: #e5d97f;
-        }
-
-        .button-cloudcat {
-            background-color: #2a2655;
-            color: #69a0dd;
-        }
-
-        .button-mumu {
-            background-color: #f1ddde;
-            color: #891414;
-        }
-
-        .color-white {
-            background-color: #fff;
-            border: 2px solid #000;
-            color: #000;
-        }
-
-        .color-black {
-            background-color: #000;
-            border: 2px solid #fff;
-            color: #fff;
-        }
-
-        .color-zizi {
-            background-color: #81ac71;
-            border: 2px solid #e5d97f;
-            color: #e5d97f;
-        }
-
-        .color-cloudcat {
-            background-color: #2a2655;
-            border: 2px solid #69a0dd;
-            color: #69a0dd;
-        }
-
-        .color-mumu {
-            background-color: #f1ddde;
-            border: 2px solid #891414;
-            color: #891414;
-        }
-
         #footer {
             text-align: center;
             padding: 10px;
@@ -159,232 +104,246 @@
 </head>
 
 <body class="color">
-<div>
-    <h3 id="error"></h3>
-</div>
+    <div><h3 id="error"></h3></div>
 
-<div id="container">
-    <div id="leftBoxContainer">
-        我的Cookie auth-token：
-        <input type="text" id="TACmyid" class="color"/>
-        對方channelID：
-        <input type="text" id="TACyourid" class="color"/>
-        冷卻(min)：
-        <input type="number" id="TACcd" class="color" min="1" pattern="\d*"/>
-        次數：(為空不限制)
-        <input type="number" id="TACtimes" class="color" min="0" pattern="\d*"/>
-        輸入：
-        <div id="leftBox">
-            <textarea id="TACtext" class="color"></textarea>
+    <div id="container">
+        <div id="leftBoxContainer">
+           我的 Cookie auth-token：
+           <input type="password" id="TACmyid" class="color"/>
+           對方 頻道帳號：
+           <input type="text" id="TACyourName" class="color"/>
+           冷卻(min)：
+           <input type="number" id="TACcd" class="color" min="1" pattern="\d*"/>
+           次數：
+           <input type="number" id="TACtimes" class="color" min="0" pattern="\d*"/>
+           發送訊息：
+           <div id="leftBox">
+               <textarea id="TACtext" class="color"></textarea>
+           </div>
+        </div>
+        <div id="rightBoxContainer">
+            時間：
+            <div id="rightBoxTime" class="color"></div>
+            下次(s)：
+            <div id="rightBoxTop" class="color"></div>
+            發送紀錄：
+            <div id="rightBoxCounter" class="color"></div>
         </div>
     </div>
-    <div id="rightBoxContainer">
-        時間：
-        <div id="rightBoxTime" class="color"></div>
-        下次發送(s)：
-        <div id="rightBoxTop" class="color"></div>
-        計數器：
-        <div id="rightBoxCounter" class="color"></div>
+
+    <div id="buttonContainer">
+        <button onclick="ResetAndRun()">開始</button>
+        <button onclick="Stop()">停止</button>
     </div>
-</div>
 
-<div id="buttonContainer">
-    <button onclick="resetAndRun()">開始</button>
-    <button onclick="stop()">停止</button>
-</div>
+    <div id="additionalButtonContainer"></div>
 
-<div id="additionalButtonContainer">
-    <button class="custom-button button-white" onclick="changeColor('white')">Light</button>
-    <button class="custom-button button-black" onclick="changeColor('black')">Dark</button>
-    <button class="custom-button button-zizi" onclick="changeColor('zizi')">吱吱</button>
-    <button class="custom-button button-cloudcat" onclick="changeColor('cloudcat')">雲貓</button>
-    <button class="custom-button button-mumu" onclick="changeColor('mumu')">姆姆</button>
-</div>
-
-<div id="footer">
-    ver.1.1</br>
-    &copy; 2024 Empiretactics. All Rights Reserved.
-</div>
+    <div id="footer">2025.04.19</br>&copy; 2024 Empiretactics. All Rights Reserved.</div>
 </body>
 
 <script>
     const TACmyid = document.getElementById('TACmyid');
-    const TACyourid = document.getElementById('TACyourid');
+    const TACyourName = document.getElementById('TACyourName');
     const TACcd = document.getElementById('TACcd');
     const TACtimes = document.getElementById('TACtimes');
     const TACtext = document.getElementById('TACtext');
-
     const rightBoxTime = document.getElementById('rightBoxTime');
     const rightBoxTop = document.getElementById('rightBoxTop');
     const rightBoxCounter = document.getElementById('rightBoxCounter');
-
-    const defaultText = '';
-    let currentIndex = 0;
-    let timer = 0;
+    const profileListContainer = document.getElementById('profileListContainer');
+    const defaultText = 'Hello!';
+    const defaultCd = 1;
+    const defaultColor = 'white';
+    let currentIndex;
+    let timer;
     let intervalId;
     let intervalId2;
+    let currentTime;
+    let currentColor;
 
     const data0 = '{"query":"mutation SendChatMessage($input: SendChatMessageInput!) {sendChatMessage(input: $input) {dropReason message {id}}}","variables":{"input":{"channelID":"';
     const data1 = '","message":"';
     const data2 = '"}}}';
 
-    let texts;
-    let oauth;
-    let currentTime;
+    const data3 = '[{"operationName":"ChannelShell","variables":{"login":"';
+    const data4 = '"},"extensions":{"persistedQuery":{"version":1,"sha256Hash":"580ab410bcd0c1ad194224957ae2241e5d252b2c5173d8e0cce9d32d5bb14efe"}}}]';
 
-    function rightBoxCounterText() {
-        TwitchAutoComment();
+    // 在頁面加載時從 Cookie 載入內容
+    const elements = [TACmyid, TACyourName, TACcd, TACtimes, TACtext]; // 將所有需要讀取cookie的元素放入數組
+    window.onload = function() {
+        elements.forEach(function(element) {
+            getCookie(element); // 循環調用 getCookie
+            element.addEventListener('input', function() {
+                setCookie(element); // 監聽 textarea 的變更事件，並更新 Cookie
+            });
+        });
+        // 若沒有值取預設值
+        TACtext.value = TACtext.value || defaultText;
+        TACcd.value = TACcd.value || defaultCd;
+        changeColor(defaultColor);
+    };
+
+    async function ResetAndRun() {
+        // 初始化
+        Stop();
+        rightBoxCounter.innerHTML = '';
+
+        // 設定
+        let oauth = "OAuth " + TACmyid.value;
+        let TwitchGetUserTexts = data3 + TACyourName.value + data4;
+        
+        const res = await twitchGql(oauth, TwitchGetUserTexts); // TwitchGetUser
+        let TACyourid = res[0]['data']['userOrError']['id'];
+
+        let TwitchCommentTexts = TACtext.value.split('\n');
+        TwitchCommentTexts = filterSpace(TwitchCommentTexts);
+        TwitchCommentTexts = data0 + TACyourid + data1 + TwitchCommentTexts + data2;
+
+        // 執行
+        rightBoxCounterText(oauth, TwitchCommentTexts);
+        intervalId2 = setInterval(rightBoxTopText, 1000); // 每隔 1 秒執行
+    }
+
+    function Stop() {
+        clearInterval(intervalId);
+        clearInterval(intervalId2);
+        currentIndex = 0;
+    }
+
+    async function rightBoxCounterText(oauth, TwitchCommentTexts) {
+        clearInterval(intervalId); // 清除執行時間
+        await twitchGql(oauth, TwitchCommentTexts, 'ResetAndRun'); // TwitchComment
+        intervalId = setInterval(() => {
+            rightBoxCounterText(oauth, TwitchCommentTexts);
+        }, TACcd.value * 60 * 1000); // 每隔 60 秒執行
         timer = TACcd.value * 60;
         currentIndex++;
-        rightBoxCounter.innerHTML += currentIndex;
-        rightBoxCounter.innerHTML += ' ';
-        rightBoxCounter.innerHTML += currentTime;
-        rightBoxCounter.innerHTML += '<br>';
+        rightBoxCounter.innerHTML += currentIndex + ' ' + currentTime + '<br>';
         if (TACtimes.value === currentIndex) {
-            clearInterval(intervalId);
-            clearInterval(intervalId2);
-            currentIndex = 0;
+            Stop();
         }
         rightBoxCounter.scrollTop = rightBoxCounter.scrollHeight;
     }
 
     function rightBoxTopText() {
-        // if (timer === 0) {
-        //     timer = TACcd.value * 60;
-        // }
         rightBoxTop.innerHTML = timer;
         timer--;
     }
+    
+    async function Insert() {
+        let oauth = "OAuth " + TACmyid.value;
+        let TwitchGetUserTexts = data3 + TACyourName.value + data4;
+        
+        const res = await twitchGql(oauth, TwitchGetUserTexts); // TwitchGetUser
+        let profileImageURL = res[0]['data']['userOrError']['profileImageURL'];
+        let displayName = res[0]['data']['userOrError']['displayName'];
+        let login = res[0]['data']['userOrError']['login'];
+        
+        const profileContainer = document.createElement('div');
+            profileContainer.classList.add('color', 'profileContainer');
+        profileListContainer.appendChild(profileContainer);
 
-    function resetAndRun() {
-        // 初始化
-        clearInterval(intervalId);
-        clearInterval(intervalId2);
-        rightBoxCounter.innerHTML = '';
-        rightBoxTop.innerHTML = '';
-        currentIndex = 0;
-        timer = 0;
-        // 設定
-        texts = TACtext.value.split('\n');
-        texts = filterSpace(texts);
-        texts = data0 + TACyourid.value + data1 + texts + data2;
-        oauth = "OAuth " + TACmyid.value;
-        // 執行
-        rightBoxCounterText(); // 先執行一次
-        intervalId = setInterval(rightBoxCounterText, TACcd.value * 60 * 1000 + 100); // 100ms誤差增加
-        intervalId2 = setInterval(rightBoxTopText, 1000); // 每隔 1 秒執行
+        const img = document.createElement('img');
+            img.src = profileImageURL;
+        profileContainer.appendChild(img);
+
+        const span = document.createElement('span');
+            span.innerHTML = displayName + ' ' + login + '<br>';
+        profileContainer.appendChild(span);
+        changeColor(currentColor);
     }
 
-    function stop() {
-        clearInterval(intervalId);
-        clearInterval(intervalId2);
-    }
-
-    // 在頁面加載時從 Cookie 載入內容
-    window.onload = function() {
-        getCookie(TACmyid);
-        getCookie(TACyourid);
-        getCookie(TACcd);
-        getCookie(TACtimes);
-        getCookie(TACtext);
-        changeColor('white');
-    };
-
-    // 監聽 textarea 的變更事件，並更新 Cookie
-    TACmyid.addEventListener('input', function() {
-        setCookie(TACmyid);
-    });
-    TACyourid.addEventListener('input', function() {
-        setCookie(TACyourid);
-    });
-    TACcd.addEventListener('input', function() {
-        setCookie(TACcd);
-    });
-    TACtimes.addEventListener('input', function() {
-        setCookie(TACtimes);
-    });
-    TACtext.addEventListener('input', function() {
-        setCookie(TACtext);
-    });
-
+    //color.js
     const cls = ['color-white', 'color-black', 'color-zizi', 'color-cloudcat', 'color-mumu'];
 
     function changeColor(color) {
+        currentColor = color;
         document.querySelectorAll('.color').forEach(style => {
             style.classList.remove(...cls);
             style.classList.add('color-' + color);
         });
     }
 
-    function filterSpace(arr) {
-        let tmp = [];
-        arr.forEach(v => {
-            if (v.trim() !== '') {
-                tmp.push(v);
-            }
+    //ajax.js
+    function twitchGql(oauth, texts, item = null) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: "https://gql.twitch.tv/gql",
+                type: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": oauth,
+                },
+                data: texts,
+                dataType: "JSON",
+                beforeSend: function() {
+                },
+                success: function(res) {
+                    console.log(res);
+                    resolve(res);  // 請求成功，解析並返回數據
+                },
+                error: function(xhr, status, err) {
+                    console.log(err);
+                    $("#error").append(err);
+                    reject(err);  // 請求失敗，返回錯誤
+                },
+                complete: function(xhr, status) {
+                },  
+            });
         });
-        return tmp;
     }
 
-    function setCookie(obj) {
-        const expireDate = new Date();
-        expireDate.setFullYear(expireDate.getFullYear() + 10); // 設置 Cookie 10 年後過期
-        document.cookie = `${obj.id}=${encodeURIComponent(obj.value)}; expires=${expireDate.toUTCString()}; path=/`;
-    }
+    //button.js
+    const buttonConfig = [
+        { className: 'button-white', color: 'white', text: 'Light' },
+        { className: 'button-black', color: 'black', text: 'Dark' },
+        { className: 'button-zizi', color: 'zizi', text: '吱吱' },
+        { className: 'button-cloudcat', color: 'cloudcat', text: '雲貓' },
+        { className: 'button-mumu', color: 'mumu', text: '姆姆' }
+    ];
 
-    function getCookie(obj) {
-        const name = obj.id + '=';
-        const decodedCookie = decodeURIComponent(document.cookie);
-        const ca = decodedCookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) === 0) {
-                obj.value = c.substring(name.length, c.length);
-                return;
-            }
+    const additionalButtonContainer = document.getElementById('additionalButtonContainer');
+
+    buttonConfig.forEach(button => {
+        const btn = document.createElement('button');
+        btn.classList.add('custom-button', button.className);
+        btn.textContent = button.text;
+        btn.onclick = () => changeColor(button.color);
+        additionalButtonContainer.appendChild(btn);
+    });
+
+    //css.js
+    const themes = {
+        white:     { bg: '#fff',     text: '#000' },
+        black:     { bg: '#000',     text: '#fff' },
+        zizi:      { bg: '#81ac71',  text: '#e5d97f' },
+        cloudcat:  { bg: '#2a2655',  text: '#69a0dd' },
+        mumu:      { bg: '#f1ddde',  text: '#891414' }
+    };
+  
+    let cssOutput = '';
+  
+    for (const [name, colors] of Object.entries(themes)) {
+        cssOutput += `
+        .button-${name} {
+            background-color: ${colors.bg};
+            color: ${colors.text};
         }
-        // 如果沒有找到，則顯示預設文字
-        obj.value = defaultText;
+  
+        .color-${name} {
+            background-color: ${colors.bg};
+            border: 2px solid ${colors.text};
+            color: ${colors.text};
+        }
+        `;
     }
-
-    function TwitchAutoComment() {
-        $.ajax({
-            url: "https://gql.twitch.tv/gql",
-            type: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": oauth,
-            },
-            data: texts,
-            dataType: "JSON",
-            success: function(res) {
-                console.log(res);
-                $("#error").append(res);
-            },
-            error: function(err) {
-                console.log(err);
-                $("#error").append(err);
-            },
-        });
-    }
-
-    // 時間控制
-    function updateDateTime() {
-        const now = new Date();
-        const date = now.toLocaleDateString(); // 當地日期
-        const time = now.toLocaleTimeString(); // 當地時間
-        currentTime = `${date} ${time}`
-        rightBoxTime.innerHTML = currentTime;
-    }
-
-    // 每秒更新一次
-    setInterval(updateDateTime, 1000);
-
-    // 初始化顯示
-    updateDateTime();
+  
+    const styleTag = document.createElement('style');
+    styleTag.textContent = cssOutput;
+    document.head.appendChild(styleTag);
 </script>
+
+<script src="src/js/cookie.js"></script>
+<script src="src/js/datetime.js"></script>
 
 </html>
