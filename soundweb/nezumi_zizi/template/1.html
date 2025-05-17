@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>角色簡介</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('../img/bg.jpeg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: rgba(255, 255, 255, 0.8); /* 80% 透明度 */
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .left-block {
+            width: 50%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 50px; /* 距離頂部的距離 */
+            border: 2px solid;
+            border-image: linear-gradient(135deg, #ffa500, #fff, #ffa500);
+            border-image-slice: 1;
+        }
+        .right-block {
+            width: 50%;
+            padding: 20px;
+        }
+        .left-block img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .sound-button {
+            display: block;
+            margin: 10px auto;
+            background-color: #ffa500;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .sound-button:hover {
+            background-color: #ff8500;
+        }
+        .sound-buttons-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 10px;
+            margin-bottom: 10px;       
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid;
+            border-image: linear-gradient(135deg, #ffa500, #fff, #ffa500);
+            border-image-slice: 1;
+        }
+        .sound-button-wrapper:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-block">
+            <img src="../img/character_image.jpg" alt="角色圖片">
+            <h2>角色名稱</h2>
+            <p>這裡是角色的簡介內容。</p>
+        </div>
+        <div class="right-block">
+            <!-- 以下是根據 sound.txt 動態生成音效按鈕 -->
+            <div class="sound-buttons-wrapper" id="soundButtonsWrapper">
+                <!-- 音效按鈕將透過 JavaScript 動態生成 -->
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        &copy; 2024 Empiretactics. All Rights Reserved.
+    </div>
+
+    <script>
+        // 使用 JavaScript 動態引入音效設定檔 ../sound.txt
+        fetch('../sound.txt')
+            .then(response => response.text())
+            .then(data => {
+                const soundButtonsWrapper = document.getElementById('soundButtonsWrapper');
+                const audioSettings = data.split('\n').filter(setting => setting.trim() !== '');
+
+                audioSettings.forEach(setting => {
+                    if (setting.trim().startsWith('#')) {
+                        // 跳過註解行
+                        return;
+                    }
+
+                    const [audioFile, audioName] = setting.split(':');
+                    const button = document.createElement('button');
+                    button.className = 'sound-button';
+                    button.textContent = audioName.trim();
+                    button.onclick = () => playSound(audioFile.trim());
+                    soundButtonsWrapper.appendChild(button);
+                });
+            });
+
+        var audio = new Audio();
+
+        function playSound(soundFile) {
+            audio.src = soundFile;
+            audio.play();
+        }
+    </script>
+</body>
+</html>

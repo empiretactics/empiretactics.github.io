@@ -1,2 +1,2 @@
 # empiretactics.github.io
-empiretactics.github.io
+## https://empiretactics.github.io/

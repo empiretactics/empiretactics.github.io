@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <title>天天天</title>
+    <meta http-equiv="content-type">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="refresh" content="5">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        div.loading {
+            height: 100%;
+            width: 100%;
+            /*100%覆蓋網頁內容, 避免user在loading時進行其他操作*/
+            position: fixed;
+            z-index: 99999;
+            /*須大於網頁內容*/
+            top: 0;
+            left: 0;
+            display: block;
+            background: #000;
+            opacity: 0.6;
+            text-align: center;
+        }
+        
+        div {
+            text-align: center;
+            margin: auto;
+        }
+
+        select {
+            width: 40px;
+            height: auto;
+        }
+
+        th {
+            width: 200px;
+            height: 50px;
+        }
+
+        td {
+            width: 200px;
+            height: 50px;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        table {
+            margin: auto;
+            text-align: center;
+        }
+
+        p {
+            width: 50%;
+            margin: auto;
+        }
+
+        input {
+            width: auto;
+            height: auto;
+        }
+
+        .alert {
+            width: 50%;
+            margin: 0 25%;
+        }
+    </style>
+</head>
+
+<body class="p-3 mb-2 bg-dark text-white">
+    <div>
+        <h3 id="error"></h3>
+    </div>
+
+    <div id="loading" class="loading"></div>
+
+    <footer>
+        <h6>ver.1.2.0</h6>
+    </footer>
+</body>
+
+
+<script>
+    let x = 0; // 橫列
+    let y = 0; // 直行
+    let lock = false; // 按鈕鎖
+
+    $(function() {
+        getList();
+    });
+
+    function getList() {
+        let datetime = new Date();
+        $("#loading").empty();
+        $("#loading").append(datetime);
+    }
+
+    <!--ajax-->
+    /**
+     * 取 優口之書
+     */
+    function getYoukoBook() {
+        $.ajax({
+            method: "GET",
+            url: "https://script.google.com/macros/s/AKfycbygAUlp1i3kSd5F1De46I9EQhRft-bYi5SlN_iLwXEzW1auJAFkR-X-Ox0-sgGX5_lo/exec",
+            dataType: "JSON",
+            success: function(res) {
+                $("#loading").empty();
+                $("#loading").append("優口之書：" + res);
+            },
+            error: function(err) {
+                console.log(err);
+                $("#error").append(err);
+            },
+            complete: function() {
+                getLenormandList();
+            }
+        });
+    }
+
+    /**
+     * 取 雷諾曼列表
+     */
+    function getLenormandList() {
+        $.ajax({
+            method: "GET",
+            url: "https://script.google.com/macros/s/AKfycbxiBZircRPwwY37MBXc_E2RZouOHgS7Iq7peQOUkHpjBy5K6xWmRY3weWiVARt7glIIFQ/exec",
+            data: {
+                n: x * y,
+            },
+            dataType: "JSON",
+            beforeSend: function() {
+                $("#loading").css("display", "");
+            },
+            success: function(res) {
+                $("#outpost").empty();
+                outpost(res);
+            },
+            error: function(err) {
+                console.log(err);
+                $("#error").append(err);
+            },
+            complete: function() {
+                $("#loading").css("display", "none");
+                lock = false;
+            }
+        });
+    }
+
+    <!--組HTML語法-->
+    /**
+     * 雷諾曼列表 回傳 整理顯示
+     */
+    function outpost(data) {
+        let table = "<table border='1'>";
+        for (let i = 0; i < (2 * y); i++) {
+            table += "<tr>";
+            for (let j = 0; j < x; j++) {
+                let n = j + y * (i - 1) / 2;
+                let m = j + y * i / 2 + x * y;
+                if (i % 2) {
+                    table += "<td>" + data[n] + "</td>";
+                } else {
+                    table += "<td><img src=" + data[m] + "></td>";
+                }
+            }
+            table += "</tr>";
+        }
+        table += "</table>";
+
+        $("#outpost").append(table);
+    }
+</script>
+
+</html>

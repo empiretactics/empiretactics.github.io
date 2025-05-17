@@ -1,0 +1,5 @@
+#  音效名稱：音效路徑
+5MA(左)：../sound/5MA_left.mp3
+5MA(右)：../sound/5MA.mp3
+10MA(左)(右)：../sound/10MA.mp3
+起床重睡：../sound/起床重睡.mp3
