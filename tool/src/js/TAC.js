@@ -3,6 +3,7 @@ const TACyourName = document.getElementById('TACyourName');
 const TACcd = document.getElementById('TACcd');
 const TACtimes = document.getElementById('TACtimes');
 const TACtext = document.getElementById('TACtext');
+const TACcolor = document.getElementById('TACcolor');
 const rightBoxTime = document.getElementById('rightBoxTime');
 const rightBoxTop = document.getElementById('rightBoxTop');
 const rightBoxCounter = document.getElementById('rightBoxCounter');
@@ -15,7 +16,6 @@ let timer;
 let intervalId;
 let intervalId2;
 let currentTime;
-let currentColor;
 
 const data0 = '{"query":"mutation SendChatMessage($input: SendChatMessageInput!) {sendChatMessage(input: $input) {dropReason message {id}}}","variables":{"input":{"channelID":"';
 const data1 = '","message":"';
@@ -29,13 +29,14 @@ window.onload = function() {
     elements.forEach(function(element) {
         getCookie(element); // 循環調用 getCookie
         element.addEventListener('input', function() {
-            setCookie(element); // 監聽 textarea 的變更事件，並更新 Cookie
+            setCookie(element); // 監聽變更事件，並更新 Cookie
         });
     });
     // 若沒有值取預設值
     TACtext.value = TACtext.value || defaultText;
     TACcd.value = TACcd.value || defaultCd;
-    changeColor(defaultColor);
+    TACcolor.value = TACcolor.value || defaultColor;
+    changeColor(TACcolor.value);
 };
 
 async function ResetAndRun() {
@@ -86,7 +87,7 @@ async function Insert() {
     const span = document.createElement('span');
     span.innerHTML = displayName + ' ' + login + '<br>';
     profileContainer.appendChild(span);
-    changeColor(currentColor);
+    changeColor(TACcolor.value);
 }
 
 async function rightBoxCounterText(oauth, TwitchCommentTexts) {
@@ -182,7 +183,8 @@ function changeColor(color) {
         style.classList.remove(...cls);
         style.classList.add('color-' + color);
     });
-    currentColor = color;
+    $('#TACcolor').val(color);
+    setCookie(TACcolor);
 }
 
 //button.js
