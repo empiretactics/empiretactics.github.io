@@ -24,7 +24,7 @@ const data3 = '[{"operationName":"ChannelShell","variables":{"login":"';
 const data4 = '"},"extensions":{"persistedQuery":{"version":1,"sha256Hash":"580ab410bcd0c1ad194224957ae2241e5d252b2c5173d8e0cce9d32d5bb14efe"}}}]';
 
 // 在頁面加載時從 Cookie 載入內容
-const elements = [TACmyid, TACyourName, TACcd, TACtimes, TACtext]; // 將所有需要讀取cookie的元素放入數組
+const elements = [TACmyid, TACyourName, TACcd, TACtimes, TACtext, TACcolor]; // 將所有需要讀取cookie的元素放入數組
 window.onload = function() {
     elements.forEach(function(element) {
         getCookie(element); // 循環調用 getCookie
