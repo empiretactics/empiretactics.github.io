@@ -1,16 +1,20 @@
+const Color = document.getElementById('Color');
+
 const TACmyid = document.getElementById('TACmyid');
 const TACyourName = document.getElementById('TACyourName');
 const TACcd = document.getElementById('TACcd');
 const TACtimes = document.getElementById('TACtimes');
 const TACtext = document.getElementById('TACtext');
-const TACcolor = document.getElementById('TACcolor');
+
 const rightBoxTime = document.getElementById('rightBoxTime');
 const rightBoxTop = document.getElementById('rightBoxTop');
 const rightBoxCounter = document.getElementById('rightBoxCounter');
 const profileListContainer = document.getElementById('profileListContainer');
+
 const defaultText = 'Hello!';
 const defaultCd = 1;
 const defaultColor = 'white';
+
 let currentIndex;
 let timer;
 let intervalId;
@@ -24,7 +28,7 @@ const data3 = '[{"operationName":"ChannelShell","variables":{"login":"';
 const data4 = '"},"extensions":{"persistedQuery":{"version":1,"sha256Hash":"580ab410bcd0c1ad194224957ae2241e5d252b2c5173d8e0cce9d32d5bb14efe"}}}]';
 
 // 在頁面加載時從 Cookie 載入內容
-const elements = [TACmyid, TACyourName, TACcd, TACtimes, TACtext, TACcolor]; // 將所有需要讀取cookie的元素放入數組
+const elements = [TACmyid, TACyourName, TACcd, TACtimes, TACtext, Color]; // 將所有需要讀取cookie的元素放入數組
 window.onload = function() {
     elements.forEach(function(element) {
         getCookie(element); // 循環調用 getCookie
@@ -35,8 +39,8 @@ window.onload = function() {
     // 若沒有值取預設值
     TACtext.value = TACtext.value || defaultText;
     TACcd.value = TACcd.value || defaultCd;
-    TACcolor.value = TACcolor.value || defaultColor;
-    changeColor(TACcolor.value);
+    Color.value = Color.value || defaultColor;
+    changeColor(Color.value);
 };
 
 async function ResetAndRun() {
@@ -87,7 +91,7 @@ async function Insert() {
     const span = document.createElement('span');
     span.innerHTML = displayName + ' ' + login + '<br>';
     profileContainer.appendChild(span);
-    changeColor(TACcolor.value);
+    changeColor(Color.value);
 }
 
 async function rightBoxCounterText(oauth, TwitchCommentTexts) {
@@ -164,55 +168,3 @@ function twitchGql(oauth, texts, item = null) {
         });
     });
 }
-
-//config.js
-const Config = [
-    { name: 'white', text: 'Light', bg: '#fff', font: '#000' },
-    { name: 'black', text: 'Dark', bg: '#000', font: '#fff' },
-    { name: 'nezumi_zizi', text: '吱吱', bg: '#81ac71', font: '#e5d97f' },
-    { name: 'cloudcat501', text: '雲貓' , bg: '#2a2655', font: '#69a0dd' },
-    { name: 'empiretactic', text: '姆姆' , bg: '#f1ddde', font: '#891414' },
-    { name: 'tian_0301', text: '天天' , bg: '#fff', font: '#69a0dd' },
-    { name: 'gnimz0506', text: '冥耐' , bg: '#808ad4', font: '#aeaaab' },
-];
-
-//color.js
-const cls = Config.map(b => `color-${b.name}`);
-function changeColor(color) {
-    document.querySelectorAll('.color').forEach(style => {
-        style.classList.remove(...cls);
-        style.classList.add('color-' + color);
-    });
-    $('#TACcolor').val(color);
-    setCookie(TACcolor);
-}
-
-//button.js
-const additionalButtonContainer = document.getElementById('additionalButtonContainer');
-Config.forEach(button => {
-    const btn = document.createElement('button');
-    btn.classList.add('custom-button', 'button-' + button.name);
-    btn.textContent = button.text;
-    btn.onclick = () => changeColor(button.name);
-    additionalButtonContainer.appendChild(btn);
-});
-
-//css.js
-let cssOutput = '';
-Config.forEach(themes => {
-    cssOutput += `
-        .button-${themes.name} {
-            background-color: ${themes.bg};
-            color: ${themes.font};
-        }
-
-        .color-${themes.name} {
-            background-color: ${themes.bg};
-            border: 2px solid ${themes.font};
-            color: ${themes.font};
-        }
-        `;
-});
-const styleTag = document.createElement('style');
-styleTag.textContent = cssOutput;
-document.head.appendChild(styleTag);
