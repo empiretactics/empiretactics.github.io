@@ -6,6 +6,8 @@
     <title>圖奇聊天室自動簽到/留言</title>
     <link rel="icon" type="image/png" href="src/icon/TAC.png">
     <link rel="stylesheet" href="src/css/TAC.css"/>
+    <link rel="stylesheet" href="src/css/footer.css"/>
+    <link rel="stylesheet" href="src/css/error.css"/>
 </head>
 
 <body class="color">
@@ -35,22 +37,35 @@
             <div id="rightBoxCounter" class="color"></div>
         </div>
     </div>
-
     <div id="buttonContainer">
         <button onclick="ResetAndRun()">開始</button>
         <button onclick="Stop()">停止</button>
     </div>
 
+
+    <div id="container2">
+    對方 頻道帳號：
+    <input type="text" id="TACInsertName" class="color"/>
+    </div>
+    <div id="addButtonContainer">
+        <button onclick="Insert()">新增</button>
+        <button onclick="All()">一鍵簽到</button>
+    </div>
+    <div id="profileListContainer"></div>
+
+
     <div id="footer">2025.05.17<br>&copy; 2024 Empiretactics. All Rights Reserved.</div>
     <div id="error-container" class="error-container"></div>
     <input type="hidden" id="Color"/>
+    <textarea id="TACInsert" hidden></textarea>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="src/js/TAC.js"></script>
 <script src="src/js/cookie.js"></script>
 <script src="src/js/color.js"></script>
-<script src="src/js/datetime.js"></script>
 <script src="src/js/plugin.js"></script>
+<script src="src/js/datetime.js"></script>
+<script src="src/js/error.js"></script>
 
 </html>
