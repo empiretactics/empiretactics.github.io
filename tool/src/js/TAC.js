@@ -77,8 +77,8 @@ async function rightBoxCounterText(oauth, TwitchCommentTexts, TwitchGetUserTexts
     currentIndex++;
 
     // 確認live on
-    const res = await twitchGql(oauth, TwitchGetUserTexts, 'TwitchGetUser');
-    let TACyourstream = res[0]['data']['userOrError']['stream'];
+    const resStream = await twitchGql(oauth, TwitchGetUserTexts, 'TwitchGetUser');
+    let TACyourstream = resStream[0]['data']['userOrError']['stream'];
     if (TACyourstream == null) {
         await twitchGql(oauth, TwitchCommentTexts, 'TwitchComment');
         rightBoxCounter.innerHTML += currentIndex + ' ' + currentTime + '<br>';
