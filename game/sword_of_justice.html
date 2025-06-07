@@ -1,364 +1,41 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
     <title>逆水寒組隊系統</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            padding: 20px;
-        }
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../src/img/icon.png">
+    <link rel="stylesheet" href="../src/css/font.css"/>
+    <link rel="stylesheet" href="../src/css/footer.css"/>
 
-        #container {
-            display: flex;
-            transition: all 0.3s ease;
-            height: 100%;
-        }
-
-        #mainContent {
-            flex: 1;
-            transition: all 0.3s ease;
-            padding: 20px;
-        }
-
-        #toggleSidebar {
-            position: absolute;
-            right: 310px;
-            top: 30px;
-            transition: right 0.3s ease;
-            z-index: 100;
-        }
-
-        #container.sidebar-collapsed #toggleSidebar {
-            right: 0;
-        }
-
-        #sidebar {
-            width: 280px;
-            transition: all 0.3s ease;
-        }
-
-        #container.sidebar-collapsed #sidebar {
-            width: 0;
-            padding: 0;
-            overflow: hidden;
-            border-left: none;
-        }
-
-        #playerInput {
-            margin-bottom: 10px;
-        }
-
-        #players, .team, #trash {
-            border: 2px dashed #ccc;
-            padding: 10px;
-            min-height: 80px;
-            background: #f9f9f9;
-            margin-bottom: 15px;
-        }
-
-        .player {
-            background: #d9edf7;
-            border: 1px solid #31708f;
-            padding: 5px 10px;
-            margin: 3px 0;
-            cursor: move;
-        }
-
-        .team {
-            width: 30%;
-            background: #e0e0e0; /* 淺灰背景 */
-            display: flex;
-            flex-direction: column;
-            border: 2px dashed #999; /* 深一點的灰邊框 */
-        }
-
-        .team-header {
-            background: #b0b0b0; /* 深灰色表頭 */
-            padding: 5px;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #888;
-        }
-
-        .team-body {
-            padding: 10px;
-            min-height: 80px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #teamsWrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        #trash {
-            background: #ffecec;
-            border-color: #d9534f;
-            color: #d9534f;
-            text-align: center;
-        }
-
-        .btn-delete {
-            background: #cc0000;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 4px 8px;
-            cursor: pointer;
-        }
-
-        #colorZones {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: nowrap;
-            width: 100%;
-        }
-
-        .color-zone {
-            flex: 1;
-            min-width: 0;
-            padding: 10px;
-            text-align: center;
-            border: 1px dashed #888;
-            border-radius: 6px;
-            background: #fff;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    </style>
+    <link rel="stylesheet" href="src/css/SOJ.css"/>
+    <link rel="stylesheet" href="../src/css/error.css"/>
 </head>
+
 <body>
-<div id="container" class="sidebar-open">
-    <div id="mainContent">
-        <h1>組隊系統</h1>
+    <div id="container" class="sidebar-open">
+        <div id="mainContent">
+            <h1>組隊系統</h1>
 
-        <input type="text" id="playerInput" placeholder="輸入玩家姓名">
-        <button onclick="addPlayer()">新增玩家</button>
-        <button onclick="addTeam()">新增隊伍</button>
+            <input type="text" id="playerInput" placeholder="輸入玩家姓名">
+            <button onclick="addPlayer()">新增玩家</button>
+            <button onclick="addTeam()">新增隊伍</button>
 
-        <div id="colorZones">
-            <div class="color-zone" data-color="#cce0ff" data-border="#336699">神相</div>
-            <div class="color-zone" data-color="#dff0d8" data-border="#3c763d">龍吟</div>
-            <div class="color-zone" data-color="#f8c6c6" data-border="#b22222">血河</div>
-            <div class="color-zone" data-color="#d0f0f6" data-border="#2e9fa0">碎夢</div>
-            <div class="color-zone" data-color="#ffe5b4" data-border="#ff9900">鐵衣</div>
-            <div class="color-zone" data-color="#e6d5f7" data-border="#8e44ad">九靈</div>
-            <div class="color-zone" data-color="#fcbfdc" data-border="#c2185b">素問</div>
+            <div id="colorZones"></div>
+
+            <div id="teamsWrapper"></div>
         </div>
 
-        <div id="teamsWrapper"></div>
+        <button id="toggleSidebar">❯</button>
+
+        <div id="sidebar">
+            <div id="trash">將玩家拖曳至此刪除</div>
+            <div id="players" class="sortable" data-id="players"></div>
+        </div>
     </div>
 
-    <button id="toggleSidebar">❯</button>
-
-    <div id="sidebar">
-        <div id="trash">將玩家拖曳至此刪除</div>
-        <div id="players" class="sortable" data-id="players"></div>
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-<script>
-    let playerId = 0;
-    let teamCount = 0;
-
-    function addPlayer(name = null, color = '#e0e0e0', border = '1px solid #999') {
-        const input = document.getElementById("playerInput");
-        const playerName = name || input.value.trim();
-        const allPlayers = document.querySelectorAll('.player');
-        for (let p of allPlayers) {
-            if (p.textContent === playerName) {
-                alert("該玩家已存在！");
-                input.value = "";
-                return;
-            }
-        }
-        if (playerName) {
-            const div = document.createElement("div");
-            div.className = "player";
-            div.textContent = playerName;
-            div.setAttribute("data-id", "p" + playerId++);
-            div.style.background = color;
-            div.style.border = border;
-            document.getElementById("players").appendChild(div);
-            input.value = "";
-            saveState();
-        }
-    }
-
-
-    function addTeam(players = []) {
-        teamCount++;
-
-        const team = document.createElement("div");
-        team.className = "team";
-        team.setAttribute("data-id", "team" + teamCount);
-
-        const header = document.createElement("div");
-        header.className = "team-header";
-
-        const title = document.createElement("span");
-        title.textContent = `隊伍`;
-
-        const button = document.createElement('button');
-        button.textContent = '刪除隊伍';
-        button.className = "btn btn-delete";
-        button.onclick = function () {
-            removeTeam(this);
-        };
-
-        header.appendChild(title);
-        header.appendChild(button);
-
-        const body = document.createElement("div");
-        body.className = "team-body sortable";
-        body.setAttribute("data-id", "team-body-" + teamCount);
-
-        team.appendChild(header);
-        team.appendChild(body);
-        document.getElementById("teamsWrapper").appendChild(team);
-
-        players.forEach(p => {
-            const div = document.createElement("div");
-            div.className = "player";
-            div.textContent = typeof p === "string" ? p : p.name;
-            div.setAttribute("data-id", "p" + playerId++);
-            if (typeof p === "object") {
-                if (p.color) div.style.background = p.color;
-                if (p.border) div.style.border = p.border;
-            }
-            body.appendChild(div);
-        });
-
-        initSortable(body);
-        saveState();
-    }
-
-    function removeTeam(button) {
-        const team = button.closest('.team');
-        team.remove();
-        saveState();
-    }
-
-    function initSortable(container) {
-        new Sortable(container, {
-            group: "players",
-            animation: 150,
-            onAdd: function (evt) {
-                const team = evt.to;
-                const players = team.querySelectorAll(".player").length;
-                if (team !== document.getElementById("players") && players > 6) {
-                    alert("每隊最多 6 人！");
-                    evt.from.appendChild(evt.item); // 還原
-                }
-                saveState();
-            },
-            onSort: saveState
-        });
-    }
-
-    // 刪除區
-    new Sortable(document.getElementById("trash"), {
-        group: "players",
-        animation: 150,
-        onAdd: function (evt) {
-            evt.item.remove(); // 刪除玩家
-            saveState();
-        }
-    });
-
-    // 初始化
-    initSortable(document.getElementById("players"));
-
-    // 儲存狀態至 localStorage
-    function saveState() {
-        const state = {
-            players: [],
-            teams: []
-        };
-
-        // 未分隊玩家
-        document.querySelectorAll('#players .player').forEach(p => {
-            state.players.push({
-                name: p.textContent,
-                color: p.style.background || '',
-                border: p.style.border || ''
-            });
-        });
-
-        // 各隊伍
-        document.querySelectorAll('#teamsWrapper .team').forEach(team => {
-            const teamPlayers = [];
-            team.querySelectorAll('.team-body .player').forEach(p => {
-                teamPlayers.push({
-                    name: p.textContent,
-                    color: p.style.background || '',
-                    border: p.style.border || ''
-                });
-            });
-            state.teams.push(teamPlayers);
-        });
-
-        localStorage.setItem('teamSystemState', JSON.stringify(state));
-    }
-
-    // 載入狀態
-    function loadState() {
-        const raw = localStorage.getItem('teamSystemState');
-        if (!raw) {
-            addTeam(); // 預設一隊
-            return;
-        }
-
-        const state = JSON.parse(raw);
-        state.players.forEach(p => addPlayer(p.name, p.color, p.border));
-        state.teams.forEach(teamPlayers => {
-            addTeam(teamPlayers.map(p => ({ name: p.name, color: p.color, border: p.border })));
-        });
-    }
-
-    loadState(); // 頁面載入時自動還原狀態
-
-    // 初始化分類區塊，只變更樣式，不改變位置
-    document.querySelectorAll("#colorZones .color-zone").forEach(zone => {
-        const bg = zone.getAttribute("data-color");
-        if (bg) zone.style.background = bg;
-        new Sortable(zone, {
-            group: {
-                name: "players",
-                pull: false,
-                put: true
-            },
-            animation: 150,
-            onAdd: function (evt) {
-                const color = zone.getAttribute("data-color");
-                const border = zone.getAttribute("data-border");
-
-                evt.item.style.background = color;
-                evt.item.style.border = `1px solid ${border}`;
-
-                // 還原位置
-                evt.from.insertBefore(evt.item, evt.from.children[evt.oldIndex]);
-
-                saveState();
-            }
-        });
-    });
-
-    // 收合按鈕
-    document.getElementById("toggleSidebar").addEventListener("click", function () {
-        const container = document.getElementById("container");
-        const collapsed = container.classList.toggle("sidebar-collapsed");
-        this.textContent = collapsed ? "❮" : "❯";
-    });
-</script>
+    <div id="footer">2025.06.08 &copy; By.Empiretactics. All Rights Reserved.</div>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="src/js/colorZone.js"></script>
+    <script src="src/js/SOJ.js"></script>
 </body>
 </html>

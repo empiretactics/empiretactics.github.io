@@ -1,0 +1,128 @@
+body {
+    padding: 20px;
+}
+
+#container {
+    display: flex;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+#mainContent {
+    flex: 1;
+    transition: all 0.3s ease;
+    padding: 20px;
+}
+
+#toggleSidebar {
+    position: absolute;
+    right: 310px;
+    top: 30px;
+    transition: right 0.3s ease;
+    z-index: 100;
+}
+
+#container.sidebar-collapsed #toggleSidebar {
+    right: 0;
+}
+
+#sidebar {
+    width: 280px;
+    transition: all 0.3s ease;
+}
+
+#container.sidebar-collapsed #sidebar {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+    border-left: none;
+}
+
+#playerInput {
+    margin-bottom: 10px;
+}
+
+#players, .team, #trash {
+    border: 2px dashed #ccc;
+    padding: 10px;
+    min-height: 80px;
+    background: #f9f9f9;
+    margin-bottom: 15px;
+}
+
+.player {
+    background: #d9edf7;
+    border: 1px solid #31708f;
+    padding: 5px 10px;
+    margin: 3px 0;
+    cursor: move;
+}
+
+.team {
+    width: 30%;
+    background: #e0e0e0; /* 淺灰背景 */
+    display: flex;
+    flex-direction: column;
+    border: 2px dashed #999; /* 深一點的灰邊框 */
+}
+
+.team-header {
+    background: #b0b0b0; /* 深灰色表頭 */
+    padding: 5px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #888;
+}
+
+.team-body {
+    padding: 10px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+#teamsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#trash {
+    background: #ffecec;
+    border-color: #d9534f;
+    color: #d9534f;
+    text-align: center;
+}
+
+.btn-delete {
+    background: #cc0000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+#colorZones {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.color-zone {
+    flex: 1;
+    min-width: 0;
+    padding: 10px;
+    text-align: center;
+    border: 1px dashed #888;
+    border-radius: 6px;
+    background: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
     <title>組隊系統</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../src/img/icon.png">
+    <link rel="stylesheet" href="../src/css/font.css"/>
+    <link rel="stylesheet" href="../src/css/footer.css"/>
     <style>
         body {
             font-family: sans-serif;
@@ -78,17 +82,19 @@
     </style>
 </head>
 <body>
-<h2>組隊系統</h2>
+    <h2>組隊系統</h2>
 
-<input type="text" id="playerInput" placeholder="輸入玩家姓名">
-<button onclick="addPlayer()">新增玩家</button>
-<button onclick="addTeam()">新增隊伍</button>
+    <input type="text" id="playerInput" placeholder="輸入玩家姓名">
+    <button onclick="addPlayer()">新增玩家</button>
+    <button onclick="addTeam()">新增隊伍</button>
 
-<div id="players" class="sortable" data-id="players"></div>
-<div id="trash">將玩家拖曳至此刪除</div>
-<div id="teamsWrapper"></div>
+    <div id="players" class="sortable" data-id="players"></div>
+    <div id="trash">將玩家拖曳至此刪除</div>
+    <div id="teamsWrapper"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <div id="footer">2025.06.08 &copy; By.Empiretactics. All Rights Reserved.</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script>
     let playerId = 0;
     let teamCount = 0;

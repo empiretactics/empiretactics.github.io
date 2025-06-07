@@ -1,10 +1,4 @@
-@font-face {
-    font-family: 'Yuppy TC';
-    src: url('https://fonts.googleapis.com/css?family=Yuppy+TC') format('truetype');
-}
-
 * {
-    font-family: 'Yuppy TC', Arial, sans-serif;
     border-radius: 4px;
 }
 

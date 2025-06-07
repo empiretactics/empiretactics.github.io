@@ -1,0 +1,61 @@
+div {
+    text-align: center;
+    margin: auto;
+}
+
+#loading {
+    height: 100%;
+    width: 100%;
+    /*100%覆蓋網頁內容, 避免user在loading時進行其他操作*/
+    position: fixed;
+    z-index: 99999;
+    /*須大於網頁內容*/
+    top: 0;
+    left: 0;
+    display: block;
+    background: #000;
+    opacity: 0.8;
+    text-align: center;
+    color: white;
+    font-size: 40px;
+}
+
+select {
+    width: 40px;
+    height: auto;
+}
+
+th {
+    width: 200px;
+    height: 50px;
+}
+
+td {
+    width: 200px;
+    height: 50px;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+table {
+    margin: auto;
+    text-align: center;
+}
+
+p {
+    width: 50%;
+    margin: auto;
+}
+
+input {
+    width: auto;
+    height: auto;
+}
+
+.alert {
+    width: 50%;
+    margin: 0 25%;
+}
