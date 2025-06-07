@@ -1,14 +1,16 @@
 let x = 0; // 橫列
 let y = 0; // 直行
-let lock = false; // 按鈕鎖
+let lock = true; // 按鈕鎖
 
 $(function() {
+    getYoukoBook();
 });
 
 function getList() {
     // 鎖
     if (lock) return;
     lock = true;
+    $('#loading').css("display", "");
 
     // 取得輸入參數
     let searchItem = $('#search_item_list').val();
@@ -28,8 +30,7 @@ function getList() {
             break;
     }
 
-    // 執行API
-    getYoukoBook();
+    getLenormandList();
 }
 
 <!--ajax-->
@@ -42,7 +43,6 @@ function getYoukoBook() {
         url: "https://script.google.com/macros/s/AKfycbwbyqQO5K86zjtUW_0Y4YMtRvb9p-2T2PYp9uH8FUufKoRlgJTEPsJDMz9DlD0PKRyf/exec",
         dataType: "JSON",
         success: function(res) {
-            console.log(res);
             $('#loading').empty().append("優口之書：" + res);
         },
         error: function(err) {
@@ -50,7 +50,7 @@ function getYoukoBook() {
             $('#error').append(err);
         },
         complete: function() {
-            getLenormandList();
+            lock = false;
         }
     });
 }
@@ -67,7 +67,6 @@ function getLenormandList() {
         },
         dataType: "JSON",
         beforeSend: function() {
-            $('#loading').css("display", "");
         },
         success: function(res) {
             $('#outpost').empty();
@@ -79,7 +78,7 @@ function getLenormandList() {
         },
         complete: function() {
             $('#loading').css("display", "none");
-            lock = false;
+            getYoukoBook();
         }
     });
 }
