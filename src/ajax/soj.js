@@ -8,6 +8,7 @@ function sojCards(oauth, item = null) {
                 "Content-Type": "application/json",
                 // "Cookie": oauth,
             },
+            crossDomain: true, // crossDomain
             dataType: "JSON",
             xhrFields: {
                 withCredentials: true  // 允許 cookie 自動附上
