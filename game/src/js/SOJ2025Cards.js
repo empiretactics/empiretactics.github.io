@@ -1,16 +1,16 @@
 const Color = document.getElementById('Color');
 
 const SOJ2025Cardsmyid = document.getElementById('SOJ2025Cardsmyid');
-const SOJ2025CardsyourName = document.getElementById('SOJ2025CardsyourName');
+// const SOJ2025CardsyourName = document.getElementById('SOJ2025CardsyourName');
 const SOJ2025Cardscd = document.getElementById('SOJ2025Cardscd');
 const SOJ2025Cardstimes = document.getElementById('SOJ2025Cardstimes');
-const SOJ2025Cardstext = document.getElementById('SOJ2025Cardstext');
+// const SOJ2025Cardstext = document.getElementById('SOJ2025Cardstext');
 
 const rightBoxTime = document.getElementById('rightBoxTime');
 const rightBoxTop = document.getElementById('rightBoxTop');
 const rightBoxCounter = document.getElementById('rightBoxCounter');
 
-const defaultText = 'Hello!';
+// const defaultText = 'Hello!';
 const defaultCd = 1;
 const defaultColor = 'white';
 
@@ -20,14 +20,14 @@ let intervalId;
 let intervalId2;
 let currentTime;
 
-const data0 = '{"query":"mutation SendChatMessage($input: SendChatMessageInput!) {sendChatMessage(input: $input) {dropReason message {id}}}","variables":{"input":{"channelID":"';
-const data1 = '","message":"';
-const data2 = '"}}}';
-const data3 = '[{"operationName":"ChannelShell","variables":{"login":"';
-const data4 = '"},"extensions":{"persistedQuery":{"version":1,"sha256Hash":"580ab410bcd0c1ad194224957ae2241e5d252b2c5173d8e0cce9d32d5bb14efe"}}}]';
+// const data0 = '{"query":"mutation SendChatMessage($input: SendChatMessageInput!) {sendChatMessage(input: $input) {dropReason message {id}}}","variables":{"input":{"channelID":"';
+// const data1 = '","message":"';
+// const data2 = '"}}}';
+// const data3 = '[{"operationName":"ChannelShell","variables":{"login":"';
+// const data4 = '"},"extensions":{"persistedQuery":{"version":1,"sha256Hash":"580ab410bcd0c1ad194224957ae2241e5d252b2c5173d8e0cce9d32d5bb14efe"}}}]';
 
 // 在頁面加載時從 Cookie 載入內容
-const elements = [Color, SOJ2025Cardsmyid, SOJ2025CardsyourName, SOJ2025Cardscd, SOJ2025Cardstimes, SOJ2025Cardstext]; // 將所有需要讀取cookie的元素放入數組
+const elements = [Color, SOJ2025Cardsmyid, SOJ2025Cardscd, SOJ2025Cardstimes]; // 將所有需要讀取cookie的元素放入數組
 window.onload = function() {
     elements.forEach(function(element) {
         getCookie(element); // 循環調用 getCookie
@@ -36,7 +36,7 @@ window.onload = function() {
         });
     });
     // 若沒有值取預設值
-    SOJ2025Cardstext.value = SOJ2025Cardstext.value || defaultText;
+    // SOJ2025Cardstext.value = SOJ2025Cardstext.value || defaultText;
     SOJ2025Cardscd.value = SOJ2025Cardscd.value || defaultCd;
     Color.value = Color.value || defaultColor;
     changeColor(Color.value);
@@ -48,7 +48,7 @@ function ResetAndRun() {
     rightBoxCounter.innerHTML = '';
 
     // 設定
-    let oauth = "L36NAXX2HMT_UNISDK_TOKEN=" + SOJ2025Cardsmyid.value;
+    let oauth = "nshmhmt_common_h5_account_token=" + SOJ2025Cardsmyid.value;
 
     // let TwitchGetUserTexts = data3 + SOJ2025cardsyourName.value + data4;
     //

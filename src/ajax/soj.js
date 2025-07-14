@@ -6,11 +6,12 @@ function sojCards(oauth, item = null) {
             type: "GET",
             headers: {
                 "Content-Type": "application/json",
+                "Cookie": oauth,
             },
             dataType: "JSON",
-            // xhrFields: {
-            //     withCredentials: true  // 允許 cookie 自動附上
-            // },
+            xhrFields: {
+                withCredentials: true  // 允許 cookie 自動附上
+            },
             beforeSend: function() {
             },
             success: function(res) {
