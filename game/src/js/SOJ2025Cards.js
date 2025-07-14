@@ -50,6 +50,8 @@ function ResetAndRun() {
     // 設定
     let oauth = "nshmhmt_common_h5_account_token=" + SOJ2025Cardsmyid.value;
 
+    document.cookie = oauth;
+
     // let TwitchGetUserTexts = data3 + SOJ2025cardsyourName.value + data4;
     //
     // const res = await twitchGql(oauth, TwitchGetUserTexts, 'TwitchGetUser');

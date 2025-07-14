@@ -6,7 +6,7 @@ function sojCards(oauth, item = null) {
             type: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Cookie": oauth,
+                // "Cookie": oauth,
             },
             dataType: "JSON",
             xhrFields: {
