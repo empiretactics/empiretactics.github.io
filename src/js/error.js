@@ -1,3 +1,9 @@
+//style
+const ErrorLink = document.createElement("link");
+ErrorLink.rel = "stylesheet";
+ErrorLink.href = "../src/css/error.css";
+document.head.appendChild(ErrorLink);
+
 function showError(message, duration = 5000) {
     const container = document.getElementById('error-container');
 
