@@ -11,4 +11,10 @@ const formatted =
     pad(lastModified.getMinutes()) + ":" +
     pad(lastModified.getSeconds());
 
-document.getElementById("lastModified").innerHTML = formatted + " &copy; Empiretactics";
+// 動態建立 <span id="lastModified">
+const span = document.createElement("span");
+// span.id = "lastModified";
+span.innerHTML = formatted + " &copy; Empiretactics";
+
+// 插入到 footer
+document.getElementById("footer").appendChild(span);
