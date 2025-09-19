@@ -19,10 +19,28 @@
     <a href="tool/"><h2>tool</h2></a>
     <a href="game/"><h2>game</h2></a>
 
-    <div id="footer">2025.09.19 &copy; Empiretactics</div>
-    <p>這個檔案最後修改時間是：<span id="lastModified"></span></p>
+    <div id="footer"><span id="lastModified"></span>
+        2025.09.19 &copy; Empiretactics</div>
+    
+    <input type="hidden" id="Color"/>
+    <script src="src/js/color.js"></script>
 </body>
 <script>
-      document.getElementById("lastModified").textContent = document.lastModified;
+    //   document.getElementById("lastModified").textContent = document.lastModified;
+    
+      // 先轉成 Date 物件
+      const lastModified = new Date(document.lastModified);
+
+      // 格式化 (補零)
+      const pad = n => n.toString().padStart(2, "0");
+      const formatted =
+        lastModified.getFullYear() + "-" +
+        pad(lastModified.getMonth() + 1) + "-" +
+        pad(lastModified.getDate()) + " " +
+        pad(lastModified.getHours()) + ":" +
+        pad(lastModified.getMinutes()) + ":" +
+        pad(lastModified.getSeconds());
+
+      document.getElementById("lastModified").textContent = formatted;
 </script>
 </html>
