@@ -1,16 +1,51 @@
 //config.js
 const Config = [
-    { name: 'white', text: 'Light', bg: '#fff', font: '#000' },
-    { name: 'black', text: 'Dark', bg: '#000', font: '#fff' },
-    { name: 'empiretactic', text: '姆姆', bg: '#f1ddde', font: '#891414' },
-    { name: 'tian_0301', text: '天天', bg: '#fff', font: '#69a0dd' },
-    { name: 'nezumi_zizi', text: '吱吱', bg: '#81ac71', font: '#e5d97f' },
-    { name: 'cloudcat501', text: '雲貓', bg: '#2a2655', font: '#69a0dd' },
-    { name: 'gnimz0506', text: '冥耐', bg: '#aeaaab', font: '#c2c9ffff' },
+    {
+        id: 'white',
+        tt: 'Light',
+        ft: '#000',
+        bg: '#fff'
+    },
+    {
+        id: 'black',
+        tt: 'Dark',
+        ft: '#fff',
+        bg: '#000'
+    },
+    {
+        id: 'empiretactic',
+        tt: '姆姆',
+        ft: '#891414',
+        bg: '#f1ddde'
+    },
+    {
+        id: 'tian_0301',
+        tt: '天天',
+        ft: '#69a0dd',
+        bg: '#fff'
+    },
+    {
+        id: 'nezumi_zizi',
+        tt: '吱吱',
+        ft: '#e5d97f',
+        bg: '#81ac71'
+    },
+    {
+        id: 'cloudcat501',
+        tt: '雲貓',
+        ft: '#69a0dd',
+        bg: '#2a2655'
+    },
+    {
+        id: 'gnimz0506',
+        tt: '冥耐',
+        ft: '#c2c9ffff',
+        bg: '#aeaaab'
+    },
 ];
 
 //color.js
-const cls = Config.map(b => `color-${b.name}`);
+const cls = Config.map(b => `color-${b.id}`);
 function changeColor(color) {
     document.querySelectorAll('.color').forEach(style => {
         style.classList.remove(...cls);
@@ -24,9 +59,9 @@ function changeColor(color) {
 const additionalButtonContainer = document.getElementById('additionalButtonContainer');
 Config.forEach(button => {
     const btn = document.createElement('button');
-    btn.classList.add('custom-button', 'button-' + button.name);
-    btn.textContent = button.text;
-    btn.onclick = () => changeColor(button.name);
+    btn.classList.add('custom-button', 'button-' + button.id);
+    btn.textContent = button.tt;
+    btn.onclick = () => changeColor(button.id);
     additionalButtonContainer.appendChild(btn);
 });
 
@@ -34,15 +69,15 @@ Config.forEach(button => {
 let cssOutput = '';
 Config.forEach(themes => {
     cssOutput += `
-        .button-${themes.name} {
+        .button-${themes.id} {
             background-color: ${themes.bg};
-            color: ${themes.font};
+            color: ${themes.ft};
         }
 
-        .color-${themes.name} {
+        .color-${themes.id} {
             background-color: ${themes.bg};
-            border: 2px solid ${themes.font};
-            color: ${themes.font};
+            border: 2px solid ${themes.ft};
+            color: ${themes.ft};
         }
         `;
 });
