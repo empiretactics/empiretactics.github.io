@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
     <title>圖奇聊天室自動留言</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../src/img/icon.png">
-    <link rel="stylesheet" href="../src/css/font.css"/>
-    <link rel="stylesheet" href="../src/css/footer.css"/>
+    <link rel="stylesheet" href="../src/css/font.css" />
+    <link rel="stylesheet" href="../src/css/footer.css" />
 
-    <link rel="stylesheet" href="src/css/TAC.css"/>
-    <link rel="stylesheet" href="../src/css/error.css"/>
+    <link rel="stylesheet" href="src/css/TAC.css" />
+    <link rel="stylesheet" href="../src/css/error.css" />
 </head>
 
 <body class="color">
     <div id="container">
         <div id="leftBoxContainer">
-           我的 Cookie auth-token：
-           <input type="password" id="TACmyid" class="color"/>
-           對方 頻道帳號：
-           <input type="text" id="TACyourName" class="color"/>
-           冷卻(min)：
-           <input type="number" id="TACcd" class="color" min="1" pattern="\d*"/>
-           次數：
-           <input type="number" id="TACtimes" class="color" min="0" pattern="\d*"/>
-           發送訊息：
-           <div id="leftBox">
-               <textarea id="TACtext" class="color"></textarea>
-           </div>
+            我的 Cookie auth-token：
+            <input type="password" id="TACmyid" class="color" />
+            對方 頻道帳號：
+            <input type="text" id="TACyourName" class="color" />
+            冷卻(min)：
+            <input type="number" id="TACcd" class="color" min="1" pattern="\d*" />
+            次數：
+            <input type="number" id="TACtimes" class="color" min="0" pattern="\d*" />
+            發送訊息：
+            <div id="leftBox">
+                <textarea id="TACtext" class="color"></textarea>
+            </div>
         </div>
         <div id="rightBoxContainer">
             時間：
@@ -46,7 +47,7 @@
     <div id="footer">2025.06.08 &copy; By.Empiretactics. All Rights Reserved.</div>
     <div id="colorButtonContainer"></div>
     <div id="error-container" class="error-container"></div>
-    <input type="hidden" id="Color"/>
+    <!-- <input type="hidden" id="Color" /> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../src/js/color.js"></script>
@@ -57,4 +58,5 @@
     <script src="../src/js/plugin.js"></script>
     <script src="../src/js/error.js"></script>
 </body>
+
 </html>

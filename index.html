@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="src/css/footer.css" />
 </head>
 
-<body>
+<body class="color">
     <a href="https://hackmd.io/@empiretactics/r1Is88i3j">
         <h2>花楸魔法學院</h2>
     </a>
@@ -37,27 +37,13 @@
     </a>
 
     <div id="footer"><span id="lastModified"></div>
+
     <div id="colorButtonContainer"></div>
-    <input type="hidden" id="Color" />
+    <!-- <input type="hidden" id="Color" /> -->
     <script src="src/js/color.js"></script>
+
     <script src="src/js/cookie.js"></script>
-
-    <script>
-        // 先轉成 Date 物件
-        const lastModified = new Date(document.lastModified);
-
-        // 格式化 (補零)
-        const pad = n => n.toString().padStart(2, "0");
-        const formatted =
-            lastModified.getFullYear() + "." +
-            pad(lastModified.getMonth() + 1) + "." +
-            pad(lastModified.getDate()) + " " +
-            pad(lastModified.getHours()) + ":" +
-            pad(lastModified.getMinutes()) + ":" +
-            pad(lastModified.getSeconds());
-
-        document.getElementById("lastModified").innerHTML = formatted + " &copy; Empiretactics";
-    </script>
+    <script src="src/js/footer.js"></script>
 </body>
 
 </html>

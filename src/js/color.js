@@ -1,3 +1,10 @@
+
+      // 建立 hidden input
+      const hiddenInput = document.createElement("input");
+      hiddenInput.type = "hidden";
+      hiddenInput.id = "Color";
+    //   hiddenInput.value = "#ff0000"; // 也可以先設定 value
+    
 //config.js
 const Config = [
     {
