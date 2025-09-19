@@ -1,46 +1,63 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
     <title>Ｌｉｎｋｍａｐ</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="src/img/icon.png">
-    <link rel="stylesheet" href="src/css/font.css"/>
-    <link rel="stylesheet" href="src/css/footer.css"/>
+    <link rel="stylesheet" href="src/css/font.css" />
+    <link rel="stylesheet" href="src/css/footer.css" />
 </head>
 
 <body>
-    <a href="https://hackmd.io/@empiretactics/r1Is88i3j"><h2>花楸魔法學院</h2></a>
-    <a href="youko/"><h2>花楸魔法學院</h2></a>
-    <a href="https://hackmd.io/@empiretactics/rJ7XVLyTo"><h2>克萊姆</h2></a>
-    <a href="soundweb/"><h2>SoundWeb</h2></a>
-    <a href="mufight/"><h2>姆林</h2></a>
-    <a href="muadventure/"><h2>旅</h2></a>
-    <a href="tool/"><h2>tool</h2></a>
-    <a href="game/"><h2>game</h2></a>
+    <a href="https://hackmd.io/@empiretactics/r1Is88i3j">
+        <h2>花楸魔法學院</h2>
+    </a>
+    <a href="youko/">
+        <h2>花楸魔法學院</h2>
+    </a>
+    <a href="https://hackmd.io/@empiretactics/rJ7XVLyTo">
+        <h2>克萊姆</h2>
+    </a>
+    <a href="soundweb/">
+        <h2>SoundWeb</h2>
+    </a>
+    <a href="mufight/">
+        <h2>姆林</h2>
+    </a>
+    <a href="muadventure/">
+        <h2>旅</h2>
+    </a>
+    <a href="tool/">
+        <h2>tool</h2>
+    </a>
+    <a href="game/">
+        <h2>game</h2>
+    </a>
 
-    <div id="footer"><span id="lastModified"></span><span id="lastModified2"></span>2025.09.19 &copy; Empiretactics</div>
-    
-    <input type="hidden" id="Color"/>
+    <div id="footer"><span id="lastModified"></div>
+    <div id="colorButtonContainer"></div>
+    <input type="hidden" id="Color" />
     <script src="src/js/color.js"></script>
+    <script src="src/js/cookie.js"></script>
+
+    <script>
+        // 先轉成 Date 物件
+        const lastModified = new Date(document.lastModified);
+
+        // 格式化 (補零)
+        const pad = n => n.toString().padStart(2, "0");
+        const formatted =
+            lastModified.getFullYear() + "." +
+            pad(lastModified.getMonth() + 1) + "." +
+            pad(lastModified.getDate()) + " " +
+            pad(lastModified.getHours()) + ":" +
+            pad(lastModified.getMinutes()) + ":" +
+            pad(lastModified.getSeconds());
+
+        document.getElementById("lastModified").innerHTML = formatted + " &copy; Empiretactics";
+    </script>
 </body>
-<script>
-    //   document.getElementById("lastModified").textContent = document.lastModified;
 
-      // 先轉成 Date 物件
-      const lastModified = new Date(document.lastModified);
-
-      // 格式化 (補零)
-      const pad = n => n.toString().padStart(2, "0");
-      const formatted =
-        lastModified.getFullYear() + "-" +
-        pad(lastModified.getMonth() + 1) + "-" +
-        pad(lastModified.getDate()) + " " +
-        pad(lastModified.getHours()) + ":" +
-        pad(lastModified.getMinutes()) + ":" +
-        pad(lastModified.getSeconds());
-
-      document.getElementById("lastModified").innerHTML = formatted + " &copy; Empiretactics";
-      document.getElementById("lastModified2").textContent = formatted + " &copy; Empiretactics";
-</script>
 </html>

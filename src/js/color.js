@@ -56,13 +56,13 @@ function changeColor(color) {
 }
 
 //button.js
-const additionalButtonContainer = document.getElementById('additionalButtonContainer');
+const colorButtonContainer = document.getElementById('colorButtonContainer');
 Config.forEach(button => {
     const btn = document.createElement('button');
     btn.classList.add('custom-button', 'button-' + button.id);
     btn.textContent = button.tt;
     btn.onclick = () => changeColor(button.id);
-    additionalButtonContainer.appendChild(btn);
+    colorButtonContainer.appendChild(btn);
 });
 
 //css.js
