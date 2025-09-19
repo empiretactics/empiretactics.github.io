@@ -27,7 +27,7 @@
 </body>
 <script>
     //   document.getElementById("lastModified").textContent = document.lastModified;
-    
+
       // 先轉成 Date 物件
       const lastModified = new Date(document.lastModified);
 
@@ -41,6 +41,6 @@
         pad(lastModified.getMinutes()) + ":" +
         pad(lastModified.getSeconds());
 
-      document.getElementById("lastModified").textContent = formatted;
+      document.getElementById("lastModified").textContent = formatted + ' &copy; Empiretactics';
 </script>
 </html>
