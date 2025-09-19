@@ -19,8 +19,7 @@
     <a href="tool/"><h2>tool</h2></a>
     <a href="game/"><h2>game</h2></a>
 
-    <div id="footer"><span id="lastModified"></span>
-        2025.09.19 &copy; Empiretactics</div>
+    <div id="footer"><span id="lastModified"></span><span id="lastModified2"></span>2025.09.19 &copy; Empiretactics</div>
     
     <input type="hidden" id="Color"/>
     <script src="src/js/color.js"></script>
@@ -41,6 +40,7 @@
         pad(lastModified.getMinutes()) + ":" +
         pad(lastModified.getSeconds());
 
-      document.getElementById("lastModified").textContent = formatted + ' &copy; Empiretactics';
+      document.getElementById("lastModified").innerHTML = formatted + " &copy; Empiretactics";
+      document.getElementById("lastModified2").textContent = formatted + " &copy; Empiretactics";
 </script>
 </html>
