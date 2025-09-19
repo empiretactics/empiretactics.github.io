@@ -2,11 +2,11 @@
 const Config = [
     { name: 'white', text: 'Light', bg: '#fff', font: '#000' },
     { name: 'black', text: 'Dark', bg: '#000', font: '#fff' },
-    { name: 'nezumi_zizi', text: '吱吱', bg: '#81ac71', font: '#e5d97f' },
-    { name: 'cloudcat501', text: '雲貓', bg: '#2a2655', font: '#69a0dd' },
     { name: 'empiretactic', text: '姆姆', bg: '#f1ddde', font: '#891414' },
     { name: 'tian_0301', text: '天天', bg: '#fff', font: '#69a0dd' },
-    { name: 'gnimz0506', text: '冥耐', bg: '#aeaaab', font: '#808ad4' },
+    { name: 'nezumi_zizi', text: '吱吱', bg: '#81ac71', font: '#e5d97f' },
+    { name: 'cloudcat501', text: '雲貓', bg: '#2a2655', font: '#69a0dd' },
+    { name: 'gnimz0506', text: '冥耐', bg: '#aeaaab', font: '#c2c9ffff' },
 ];
 
 //color.js
