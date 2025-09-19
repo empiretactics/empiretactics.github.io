@@ -1,19 +1,11 @@
-/**
- * use cookie.js
- */
+// use cookie.js
 
-      // 建立 hidden input
-    //   const hiddenInput = document.createElement("input");
-    //   hiddenInput.type = "hidden";
-    //   hiddenInput.id = "Color";
-    // //   hiddenInput.value = "#ff0000"; // 也可以先設定 value
+// 建立 hidden input
+const Color = document.createElement("input");
+Color.type = "hidden";
+Color.id = "Color";
+document.body.appendChild(Color); // 確保在 DOM 有這個元素
 
-      // 建立 hidden input
-      const Color = document.createElement("input");
-      Color.type = "hidden";
-      Color.id = "Color";
-      document.body.appendChild(Color); // 確保在 DOM 有這個元素
-    
 //config.js
 const Config = [
     {
@@ -67,7 +59,6 @@ function changeColor(color) {
         style.classList.remove(...cls);
         style.classList.add('color-' + color);
     });
-    // $('#Color').val(color);
     Color.value = color; // 同步 hidden input
     setCookie(Color);
 }
@@ -102,19 +93,15 @@ const styleTag = document.createElement('style');
 styleTag.textContent = cssOutput;
 document.head.appendChild(styleTag);
 
-      const defaultColor = 'white';
+const defaultColor = 'white';
 
-      // const elements = [Color]; // 將所有需要讀取cookie的元素放入數組
-      // 在頁面加載時從 Cookie 載入內容
-      window.addEventListener("load", function () {
-          getCookie(Color); // 循環調用 getCookie
-          Color.addEventListener('input', function() {
-              setCookie(Color); // 監聽變更事件，並更新 Cookie
-          });
-          // 若沒有值取預設值
-          Color.value = Color.value || defaultColor;
-          changeColor(Color.value);
-      });
-
-      // window.onload = function() {
-      // }
+// 在頁面加載時從 Cookie 載入內容
+window.addEventListener("load", function () {
+    getCookie(Color); // 循環調用 getCookie
+    Color.addEventListener('input', function () {
+        setCookie(Color); // 監聽變更事件，並更新 Cookie
+    });
+    // 若沒有值取預設值
+    Color.value = Color.value || defaultColor;
+    changeColor(Color.value);
+});
