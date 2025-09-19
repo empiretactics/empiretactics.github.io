@@ -95,7 +95,7 @@ document.head.appendChild(ColorStyle);
 
 const ColorLink = document.createElement("link");
 ColorLink.rel = "stylesheet";
-ColorLink.href = "https://raw.githubusercontent.com/empiretactics/empiretactics.github.io/refs/heads/main/src/css/color.css";
+ColorLink.href = "../src/css/color.css";
 document.head.appendChild(ColorLink);
 
 //main.js
