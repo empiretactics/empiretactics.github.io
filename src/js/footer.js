@@ -1,3 +1,9 @@
+//style
+const FooterLink = document.createElement("link");
+FooterLink.rel = "stylesheet";
+FooterLink.href = "../src/css/footer.css";
+document.head.appendChild(FooterLink);
+
 // 先轉成 Date 物件
 const lastModified = new Date(document.lastModified);
 
