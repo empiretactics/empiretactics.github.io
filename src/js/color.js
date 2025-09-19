@@ -7,7 +7,7 @@ Color.id = "Color";
 document.body.appendChild(Color); // 確保在 DOM 有這個元素
 
 //config.js
-const Config = [
+const ColorConfig = [
     {
         id: 'white',
         tt: 'Light',
@@ -53,10 +53,10 @@ const Config = [
 ];
 
 //color.js
-const cls = Config.map(b => `color-${b.id}`);
+const ColorCls = ColorConfig.map(b => `color-${b.id}`);
 function changeColor(color) {
     document.querySelectorAll('.color').forEach(style => {
-        style.classList.remove(...cls);
+        style.classList.remove(...ColorCls);
         style.classList.add('color-' + color);
     });
     Color.value = color; // 同步 hidden input
@@ -65,7 +65,7 @@ function changeColor(color) {
 
 //button.js
 const colorButtonContainer = document.getElementById('colorButtonContainer');
-Config.forEach(button => {
+ColorConfig.forEach(button => {
     const btn = document.createElement('button');
     btn.classList.add('custom-button', 'button-' + button.id);
     btn.textContent = button.tt;
@@ -74,9 +74,9 @@ Config.forEach(button => {
 });
 
 //css.js
-let cssOutput = '';
-Config.forEach(themes => {
-    cssOutput += `
+let ColorCss = '';
+ColorConfig.forEach(themes => {
+    ColorCss += `
         .button-${themes.id} {
             background-color: ${themes.bg};
             color: ${themes.ft};
@@ -89,11 +89,12 @@ Config.forEach(themes => {
         }
         `;
 });
-const styleTag = document.createElement('style');
-styleTag.textContent = cssOutput;
-document.head.appendChild(styleTag);
+const ColorStyle = document.createElement('style');
+ColorStyle.textContent = ColorCss;
+document.head.appendChild(ColorStyle);
 
-const defaultColor = 'white';
+//main.js
+const ColorDefault = 'white';
 
 // 在頁面加載時從 Cookie 載入內容
 window.addEventListener("load", function () {
@@ -102,6 +103,6 @@ window.addEventListener("load", function () {
         setCookie(Color); // 監聽變更事件，並更新 Cookie
     });
     // 若沒有值取預設值
-    Color.value = Color.value || defaultColor;
+    Color.value = Color.value || ColorDefault;
     changeColor(Color.value);
 });
