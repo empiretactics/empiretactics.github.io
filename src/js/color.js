@@ -53,7 +53,7 @@ const ColorConfig = [
     {
         id: 'lazymiu_asmr',
         tt: 'Miu',
-        ft: '#c2c9ffff',
+        ft: '#81ac71',
         bg: '#ffa500'
     },
 ];

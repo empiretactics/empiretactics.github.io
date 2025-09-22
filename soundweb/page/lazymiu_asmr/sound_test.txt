@@ -3,3 +3,4 @@
 5MA(右)：../sound/5MA.mp3
 10MA(左)(右)：../sound/10MA.mp3
 起床重睡：../sound/起床重睡.mp3
+提醒：../sound/提醒你們～.m4a
