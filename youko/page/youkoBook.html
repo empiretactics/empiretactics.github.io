@@ -52,22 +52,6 @@
     </style>
 </head>
 
-<script>
-    $.ajax({
-        method: "GET",
-        url: "https://script.google.com/macros/s/AKfycbwbyqQO5K86zjtUW_0Y4YMtRvb9p-2T2PYp9uH8FUufKoRlgJTEPsJDMz9DlD0PKRyf/exec",
-        dataType: "JSON",
-        success: function (res) {
-            // console.log(res);
-            document.getElementById("output1").innerHTML = res;
-        },
-        error: function (err) {
-            console.log(err);
-            document.getElementById("output").innerHTML = err;
-        },
-    });
-</script>
-
 <body class="p-3 mb-2 bg-dark text-white">
     <h4 id="output"></h4>
     <br><br>
@@ -85,6 +69,21 @@
     <div id="footer"></div>
     <script src="/src/js/footer.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $.ajax({
+            method: "GET",
+            url: "https://script.google.com/macros/s/AKfycbwbyqQO5K86zjtUW_0Y4YMtRvb9p-2T2PYp9uH8FUufKoRlgJTEPsJDMz9DlD0PKRyf/exec",
+            dataType: "JSON",
+            success: function (res) {
+                // console.log(res);
+                document.getElementById("output1").innerHTML = res;
+            },
+            error: function (err) {
+                console.log(err);
+                document.getElementById("output").innerHTML = err;
+            },
+        });
+    </script>
 </body>
 
 </html>

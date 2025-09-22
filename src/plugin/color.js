@@ -109,11 +109,9 @@ const ColorDefault = 'white';
 
 // 在頁面加載時從 Cookie 載入內容
 window.addEventListener("load", function () {
-    getCookie(Color); // 循環調用 getCookie
+    getCookie(Color, ColorDefault); // 若沒有值取預設值
     Color.addEventListener('input', function () {
         setCookie(Color); // 監聽變更事件，並更新 Cookie
     });
-    // 若沒有值取預設值
-    Color.value = Color.value || ColorDefault;
     changeColor(Color.value);
 });

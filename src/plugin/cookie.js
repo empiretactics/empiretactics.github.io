@@ -18,7 +18,7 @@ function getCookie(obj, defaultText = '') {
             return;
         }
     }
-    // 如果沒有找到，則顯示預設文字
+    // 若沒有值取預設值
     obj.value = defaultText;
 }
 
