@@ -24,9 +24,12 @@ span {
 .profile {
     display: flex;
     text-align: center;
-    align-items: center; /* 垂直置中 */
-    justify-content: center; /* 水平置中 */
-    gap: 10px; /* 元素之間的間距，可依需要調整 */
+    align-items: center;
+    /* 垂直置中 */
+    justify-content: center;
+    /* 水平置中 */
+    gap: 10px;
+    /* 元素之間的間距，可依需要調整 */
     margin: 5px;
 }
 
@@ -37,21 +40,25 @@ span {
     margin: 20px auto;
 }
 
-#container2, #profileListContainer {
+#container2,
+#profileListContainer {
     justify-content: space-between;
     width: 80%;
     margin: 20px auto;
 }
 
-#leftBoxContainer, #rightBoxContainer {
-    width: 50%; /* 調整為50%，使左邊區塊和右邊區塊一樣大 */
+#leftBoxContainer,
+#rightBoxContainer {
+    width: 50%;
+    /* 調整為50%，使左邊區塊和右邊區塊一樣大 */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-right: 5px;
 }
 
-#leftBox, #rightBoxCounter {
+#leftBox,
+#rightBoxCounter {
     width: 100%;
     height: 200px;
     font-size: 18px;
@@ -78,13 +85,16 @@ span {
     box-sizing: border-box;
 }
 
-#leftBox, #rightBoxTop, #rightBoxTime {
+#leftBox,
+#rightBoxTop,
+#rightBoxTime {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#buttonContainer, #addButtonContainer {
+#buttonContainer,
+#addButtonContainer {
     text-align: center;
     margin-top: 20px;
 }

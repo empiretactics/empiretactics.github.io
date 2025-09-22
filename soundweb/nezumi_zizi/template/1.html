@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <title>角色簡介</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>角色簡介</title>
+    <link rel="icon" type="image/png" href="/src/img/icon.png">
+    <link rel="stylesheet" href="/src/css/font.css" />
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,16 +15,19 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-color: rgba(255, 255, 255, 0.8); /* 80% 透明度 */
+            background-color: rgba(255, 255, 255, 0.8);
+            /* 80% 透明度 */
             text-align: center;
             margin: 0;
             padding: 0;
         }
+
         .container {
             display: flex;
             justify-content: center;
             padding: 20px;
         }
+
         .left-block {
             width: 50%;
             max-width: 600px;
@@ -28,20 +35,24 @@
             background-color: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             position: sticky;
-            top: 50px; /* 距離頂部的距離 */
+            top: 50px;
+            /* 距離頂部的距離 */
             border: 2px solid;
             border-image: linear-gradient(135deg, #ffa500, #fff, #ffa500);
             border-image-slice: 1;
         }
+
         .right-block {
             width: 50%;
             padding: 20px;
         }
+
         .left-block img {
             max-width: 100%;
             border-radius: 8px;
             margin-bottom: 10px;
         }
+
         .sound-button {
             display: block;
             margin: 10px auto;
@@ -53,27 +64,31 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         .sound-button:hover {
             background-color: #ff8500;
         }
+
         .sound-buttons-wrapper {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             margin-top: 20px;
             padding: 10px;
-            margin-bottom: 10px;       
+            margin-bottom: 10px;
             background-color: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border: 2px solid;
             border-image: linear-gradient(135deg, #ffa500, #fff, #ffa500);
             border-image-slice: 1;
         }
+
         .sound-button-wrapper:last-child {
             margin-bottom: 0;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="left-block">
@@ -89,9 +104,8 @@
         </div>
     </div>
 
-    <div id="footer">
-        &copy; 2024 Empiretactics. All Rights Reserved.
-    </div>
+    <div id="footer"></div>
+    <script src="/src/js/footer.js"></script>
 
     <script>
         // 使用 JavaScript 動態引入音效設定檔 ../sound.txt
@@ -124,4 +138,5 @@
         }
     </script>
 </body>
+
 </html>

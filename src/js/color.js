@@ -50,6 +50,12 @@ const ColorConfig = [
         ft: '#c2c9ffff',
         bg: '#aeaaab'
     },
+    {
+        id: 'lazymiu_asmr',
+        tt: 'Miu',
+        ft: '#ffa500',
+        bg: '#c2c9ffff'
+    },
 ];
 
 //color.js
@@ -95,7 +101,7 @@ document.head.appendChild(ColorStyle);
 
 const ColorLink = document.createElement("link");
 ColorLink.rel = "stylesheet";
-ColorLink.href = "../src/css/color.css";
+ColorLink.href = "/src/css/color.css";
 document.head.appendChild(ColorLink);
 
 //main.js

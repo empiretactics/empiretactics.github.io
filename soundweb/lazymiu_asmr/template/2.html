@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>角色簡介</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/src/img/icon.png">
-    <link rel="stylesheet" href="../../../src/css/font.css"/>
-    <link rel="stylesheet" href="../../../src/css/footer.css"/>
+    <link rel="stylesheet" href="/src/css/font.css" />
 
     <style>
         body {
@@ -15,16 +15,19 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-color: rgba(250, 185, 120, 0.6); /* 80% 透明度 */
+            background-color: rgba(250, 185, 120, 0.6);
+            /* 80% 透明度 */
             text-align: center;
             margin: 0;
             padding: 0;
         }
+
         .container {
             display: flex;
             justify-content: center;
             padding: 20px;
         }
+
         .left-block {
             width: 50%;
             max-width: 600px;
@@ -32,20 +35,24 @@
             background-color: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             position: sticky;
-            top: 50px; /* 距離頂部的距離 */
+            top: 50px;
+            /* 距離頂部的距離 */
             border: 2px solid;
             border-image: linear-gradient(135deg, #ffa500, #fff, #ffa500);
             border-image-slice: 1;
         }
+
         .right-block {
             width: 50%;
             padding: 20px;
         }
+
         .left-block img {
             max-width: 100%;
             border-radius: 8px;
             margin-bottom: 10px;
         }
+
         .sound-button {
             display: block;
             margin: 10px auto;
@@ -57,27 +64,31 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         .sound-button:hover {
             background-color: #ff8500;
         }
+
         .sound-buttons-wrapper {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             margin-top: 20px;
             padding: 10px;
-            margin-bottom: 10px;       
+            margin-bottom: 10px;
             background-color: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border: 2px solid;
             border-image: linear-gradient(135deg, #ffa500, #fff, #ffa500);
             border-image-slice: 1;
         }
+
         .sound-button-wrapper:last-child {
             margin-bottom: 0;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="left-block">
@@ -85,16 +96,17 @@
             <img src="../img/character2_image.jpg" alt="角色圖片">
             <h2>柑妹妹</h2>
             <p>一隻愛吃橘子的貓。</p>
-            <div class="g-ytsubscribe" data-channelid="UCKl80GFcwlFNDQ4QhWJlSfg" data-layout="full" data-count="default"></div>
+            <div class="g-ytsubscribe" data-channelid="UCKl80GFcwlFNDQ4QhWJlSfg" data-layout="full"
+                data-count="default"></div>
 
             <h2>周表</h2>
             <img src="https://i.ytimg.com/vi/NGZLUwZirTQ/maxresdefault.jpg" alt="時間表">
         </div>
 
-<!--        <div class="left-block">-->
-<!--            <h2>周表</h2>-->
-<!--            <img src="https://i.ytimg.com/vi/NGZLUwZirTQ/maxresdefault.jpg" alt="時間表">-->
-<!--        </div>-->
+        <!--        <div class="left-block">-->
+        <!--            <h2>周表</h2>-->
+        <!--            <img src="https://i.ytimg.com/vi/NGZLUwZirTQ/maxresdefault.jpg" alt="時間表">-->
+        <!--        </div>-->
         <div class="right-block">
             <!-- 以下是根據 sound.txt 動態生成音效按鈕 -->
             <div class="sound-buttons-wrapper" id="soundButtonsWrapper">
@@ -103,7 +115,8 @@
         </div>
     </div>
 
-    <div id="footer">2025.06.08 &copy; By.Empiretactics. All Rights Reserved.</div>
+    <div id="footer"></div>
+    <script src="/src/js/footer.js"></script>
 
     <script src="https://apis.google.com/js/platform.js"></script>
     <script>
@@ -137,4 +150,5 @@
         }
     </script>
 </body>
+
 </html>
