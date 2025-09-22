@@ -58,22 +58,12 @@ function resetAndRun() {
 // 在頁面加載時從 Cookie 載入內容
 window.onload = function() {
     getCookie(rightText);
-    changeColor('white');
 };
 
 // 監聽 textarea 的變更事件，並更新 Cookie
 rightText.addEventListener('input', function() {
     setCookie(rightText);
 });
-
-const cls = ['color-white', 'color-black', 'color-zizi', 'color-cloudcat', 'color-mumu'];
-
-function changeColor(color) {
-    document.querySelectorAll('.color').forEach(style => {
-        style.classList.remove(...cls);
-        style.classList.add('color-' + color);
-    });
-}
 
 function arrRandom(arr) {
     return Math.floor(Math.random() * arr.length);
@@ -87,28 +77,4 @@ function filterSpace(arr) {
         }
     });
     return tmp;
-}
-
-function setCookie(obj) {
-    const expireDate = new Date();
-    expireDate.setFullYear(expireDate.getFullYear() + 10); // 設置 Cookie 10 年後過期
-    document.cookie = `${obj.id}=${encodeURIComponent(obj.value)}; expires=${expireDate.toUTCString()}; path=/`;
-}
-
-function getCookie(obj) {
-    const name = obj.id + '=';
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) === 0) {
-            obj.value = c.substring(name.length, c.length);
-            return;
-        }
-    }
-    // 如果沒有找到，則顯示預設文字
-    obj.value = defaultText;
 }

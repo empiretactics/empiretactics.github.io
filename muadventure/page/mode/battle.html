@@ -1,47 +1,48 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <icon></icon>
     <title>姆林 - 雙人對戰</title>
-    <link rel="stylesheet" href="/mufight/src/css/battle.css"/>
+    <link rel="stylesheet" href="/mufight/src/css/battle.css" />
 </head>
 
 <body class="color">
-<div id="container">
-    <div id="leftBoxContainer">
-        <div id="topTextContainer">
-            <div id="currentTextLeft" class="currentText color">角色1</div>
-            <div id="currentTextRight" class="currentText color">角色2</div>
+    <div id="container">
+        <div id="leftBoxContainer">
+            <div id="topTextContainer">
+                <div id="currentTextLeft" class="currentText color">角色1</div>
+                <div id="currentTextRight" class="currentText color">角色2</div>
+            </div>
+            <div id="topBox" class="additionalBox color"></div>
+            <div id="leftBox" class="color"></div>
+            <div id="downBox" class="additionalBox color"></div>
         </div>
-        <div id="topBox" class="additionalBox color"></div>
-        <div id="leftBox" class="color"></div>
-        <div id="downBox" class="additionalBox color"></div>
-    </div>
-    <div id="rightBoxContainer">
-        <div id="rightBox">
-            <textarea id="rightText" class="color"></textarea>
+        <div id="rightBoxContainer">
+            <div id="rightBox">
+                <textarea id="rightText" class="color"></textarea>
+            </div>
         </div>
     </div>
-</div>
 
-<div id="buttonContainer">
-    <button onclick="resetAndRun()">重新對戰</button>
-</div>
+    <div id="buttonContainer">
+        <button onclick="resetAndRun()">重新對戰</button>
+    </div>
 
-<div id="additionalButtonContainer">
-    <button class="custom-button button-white" onclick="changeColor('white')">Light</button>
-    <button class="custom-button button-black" onclick="changeColor('black')">Dark</button>
-    <button class="custom-button button-zizi" onclick="changeColor('zizi')">吱吱</button>
-    <button class="custom-button button-cloudcat" onclick="changeColor('cloudcat')">雲貓</button>
-    <button class="custom-button button-mumu" onclick="changeColor('mumu')">姆姆</button>
-</div>
+    <div id="additionalButtonContainer">
+        <button class="custom-button button-white" onclick="changeColor('white')">Light</button>
+        <button class="custom-button button-black" onclick="changeColor('black')">Dark</button>
+        <button class="custom-button button-zizi" onclick="changeColor('zizi')">吱吱</button>
+        <button class="custom-button button-cloudcat" onclick="changeColor('cloudcat')">雲貓</button>
+        <button class="custom-button button-mumu" onclick="changeColor('mumu')">姆姆</button>
+    </div>
 
-<div id="footer">
-    ver.0.1.1 Alpha</br>
-    &copy; 2024 Empiretactics. All Rights Reserved.
-</div>
+    <div id="footer">
+        ver.0.1.1 Alpha</br>
+        &copy; 2024 Empiretactics. All Rights Reserved.
+    </div>
 </body>
 
 <script src="/mufight/src/js/battle.js"></script>
