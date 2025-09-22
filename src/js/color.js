@@ -47,14 +47,14 @@ const ColorConfig = [
     {
         id: 'gnimz0506',
         tt: '冥耐',
-        ft: '#c2c9ffff',
-        bg: '#aeaaab'
+        ft: '#aeaaab',
+        bg: '#c2c9ffff'
     },
     {
         id: 'lazymiu_asmr',
         tt: 'Miu',
-        ft: '#ffa500',
-        bg: '#c2c9ffff'
+        ft: '#c2c9ffff',
+        bg: '#ffa500'
     },
 ];
 
