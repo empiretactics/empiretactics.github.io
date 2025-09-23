@@ -10,18 +10,10 @@
 </head>
 
 <body class="color">
-    <h2 id="links" class="links"></h2>
-    <div id="footer"></div>
-    <div id="colorButtonContainer"></div>
-    <script src="/src/plugin/footer.js"></script>
-    <script src="/src/plugin/color.js"></script>
-    <script src="/src/plugin/cookie.js"></script>
-    <script>
-        const title = document.createElement("title");
-        title.textContent = "姆姆窩姆姆窩姆姆窩";
-        document.head.appendChild(title);
 
+    <script>
         //config.js
+        const TitleConfig = "姆姆窩";
         const LinkConfig = [
             {
                 href: 'youko/',
@@ -52,13 +44,15 @@
                 text: 'game'
             },
         ];
-
-        const Links = document.getElementById('links');
-        Links.innerHTML = LinkConfig.map(link =>
-            `<a href="${link.href}">${link.text}</a><br>`
-        ).join('');
     </script>
-    <!-- <script src="/src/plugin/link.js"></script> -->
+
+    <h2 id="links" class="links"></h2>
+    <div id="footer"></div>
+    <div id="colorButtonContainer"></div>
+    <script src="/src/plugin/footer.js"></script>
+    <script src="/src/plugin/color.js"></script>
+    <script src="/src/plugin/cookie.js"></script>
+    <script src="/src/plugin/index.js"></script>
 </body>
 
 </html>
