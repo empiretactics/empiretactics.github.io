@@ -7,3 +7,7 @@
     font-family: 'Yuppy TC', Arial, sans-serif;
     border-radius: 4px;
 }
+
+#links {
+    align-content: space-between;
+}
