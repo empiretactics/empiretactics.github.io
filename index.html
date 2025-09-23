@@ -16,8 +16,11 @@
     <script src="/src/plugin/footer.js"></script>
     <script src="/src/plugin/color.js"></script>
     <script src="/src/plugin/cookie.js"></script>
-    <script src="/src/plugin/link.js"></script>
     <script>
+        const title = document.createElement("title");
+        title.textContent = "姆姆窩姆姆窩姆姆窩";
+        document.head.appendChild(title);
+
         //config.js
         const LinkConfig = [
             {
@@ -49,7 +52,13 @@
                 text: 'game'
             },
         ];
+
+        const Links = document.getElementById('links');
+        Links.innerHTML = LinkConfig.map(link =>
+            `<a href="${link.href}">${link.text}</a><br>`
+        ).join('');
     </script>
+    <!-- <script src="/src/plugin/link.js"></script> -->
 </body>
 
 </html>
