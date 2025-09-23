@@ -10,22 +10,13 @@
 </head>
 
 <body class="color">
-    <h2 id="links" class="links">
-        <!-- <a href="https://hackmd.io/@empiretactics/r1Is88i3j">花楸魔法學院</a><br> -->
-        <!-- <a href="youko/">花楸魔法學院</a><br>
-        <a href="https://hackmd.io/@empiretactics/rJ7XVLyTo">克萊姆</a><br>
-        <a href="soundweb/">SoundWeb</a><br>
-        <a href="mufight/">姆林</a><br>
-        <a href="muadventure/">旅</a><br>
-        <a href="tool/">tool</a><br>
-        <a href="game/">game</a><br> -->
-    </h2>
-
+    <h2 id="links" class="links"></h2>
     <div id="footer"></div>
     <div id="colorButtonContainer"></div>
     <script src="/src/plugin/footer.js"></script>
     <script src="/src/plugin/color.js"></script>
     <script src="/src/plugin/cookie.js"></script>
+    <script src="/src/plugin/link.js"></script>
     <script>
         //config.js
         const LinkConfig = [
@@ -58,11 +49,6 @@
                 text: 'game'
             },
         ];
-
-        const Links = document.getElementById('links');
-        Links.innerHTML = LinkConfig.map(link =>
-            `<a href="${link.href}">${link.text}</a><br>`
-        ).join('');
     </script>
 </body>
 
