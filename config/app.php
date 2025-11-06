@@ -123,4 +123,9 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'providers' => [
+        Illuminate\View\ViewServiceProvider::class,
+        Spatie\Export\ExportServiceProvider::class,
+    ],
+
 ];
