@@ -2,7 +2,10 @@ name: Deploy Laravel static site to main
 on:
   push:
     branches:
-      - newT
+      - newT 
+
+permissions:
+  contents: write 
 
 jobs:
   build-deploy:
@@ -16,6 +19,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
+          extensions: mbstring, bcmath, intl, gd, xml, zip, curl, fileinfo
+          tools: composer:v2
 
       - name: Install dependencies
         run: composer install --no-dev --optimize-autoloader
@@ -29,3 +34,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: main
+          force_orphan: true   
