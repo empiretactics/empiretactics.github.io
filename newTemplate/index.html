@@ -1,1 +1,126 @@
-123
+AdminLTE + laravel + sb-admin-2 + bootstrap
+<!DOCTYPE html>
+<html lang=zh-tw>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>New System</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/assets//plugins/sb-admin-2/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <!-- <link href="/assets//plugins/sb-admin-2/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet"> -->
+    <!-- DataTables CSS -->
+    <!-- <link href="/assets//plugins/sb-admin-2/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet"> -->
+    <!-- Custom Fonts -->
+    <link href="/assets//plugins/sb-admin-2/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
+    <!-- Ionicons -->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"> -->
+    <link rel="stylesheet" href="/assets//AdminLTE-2.3.11/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/assets//AdminLTE-2.3.11/dist/css/skins/skin-blue.min.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini" style="background-color: #222D2D;">
+    <!-- Main Header -->
+    <!-- 右上 LOG -->
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="/" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b></b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b></b>&nbsp;System</span>
+        </a>
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <div class="navbar-custom-menu" style="margin:7px;">
+                <span class="skin-blue" style="margin:15px; color:#FFF">
+                    1234
+                    <!-- <?php echo $user_name . "  【 " . $alias . " 】 "; ?> -->
+                </span>
+                <a href="/passwordSet" class="btn btn-default btn-flat">修改密碼</a>
+                <a href="/auth/logout" class="btn btn-default btn-flat">登出</a>
+            </div>
+        </nav>
+
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu">
+                <li class="header">目錄</li>
+                <li class="treeview">
+                    <a href="#" title="ff"><i class="glyphicon glyphicon-transfer"></i><span>ff</span><span
+                            class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                    <ul class="treeview-menu">
+                        <li><a class="treeview-menu-a" target="frameContent" href="#" title="A">A<span
+                                    class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                            <ul class="treeview-menu">
+                                <li><a class="treeview-menu-a" target="frameContent" href="/" title="b">b</a></li>
+                                <li><a class="treeview-menu-a" target="frameContent" href="#" title="cc">cc<span
+                                            class="pull-right-container"><i
+                                                class="fa fa-angle-left pull-right"></i></span></a>
+                                    <ul class="treeview-menu">
+                                        <li><a class="treeview-menu-a" target="frameContent" href="/d" title="d">d</a>
+                                        </li>
+                                        <li><a class="treeview-menu-a" target="frameContent" href="/d" title="d">d</a>
+                                        </li>
+                                        <li><a class="treeview-menu-a" target="frameContent" href="/d" title="d">d</a>
+                                        </li>
+                                    </ul>
+                                <li><a class="treeview-menu-a" target="frameContent" href="/" title="b">b</a></li>
+                                <li><a class="treeview-menu-a" target="frameContent" href="/" title="b">b</a></li>
+                                <li><a class="treeview-menu-a" target="frameContent" href="/" title="b">b</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <div class="content-wrapper">
+        <section class="content-header" style="height: 50px">
+            <h1 id="page-header">sssss<small></small></h1>
+        </section>
+        <iframe id="frameContent" name="frameContent" src="/document" width="100%" style="height:1000px" scrolling="yes"
+            frameborder="0"></iframe>
+    </div>
+    <!-- jQuery -->
+    <script src="/assets//plugins/sb-admin-2/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/assets//plugins/sb-admin-2/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/assets//plugins/sb-admin-2/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <!-- DataTables JavaScript -->
+    <script src="/assets//plugins/sb-admin-2/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script
+        src="/assets//plugins/sb-admin-2/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="/assets//plugins/sb-admin-2/dist/js/sb-admin-2.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/assets//AdminLTE-2.3.11/dist/js/app.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $('.treeview-menu-a').on('click', function () {
+            $('#page-header').html($(this).text() + '<small class="page-header-small">' + $(this).attr('title') + '');
+        });
+    </script>
+</body>
+
+</html>

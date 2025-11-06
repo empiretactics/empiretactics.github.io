@@ -19,7 +19,7 @@ const FooterFormatted =
 
 // 建立 <span>
 const FooterSpan = document.createElement("span");
-FooterSpan.innerHTML = FooterFormatted + " &copy; Empiretactics";
+FooterSpan.innerHTML = FooterFormatted + " &copy; github.com/empiretactics";
 
 // 插入到 footer
 document.getElementById("footer").appendChild(FooterSpan);
