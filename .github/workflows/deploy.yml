@@ -1,0 +1,35 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # 當 push 到 main 分支時觸發
+
+permissions:
+  contents: write # 賦予寫入權限，用以將編譯後的 dist 推送到 gh-pages 分支
+
+jobs:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }} # 防止重複部署時的衝突
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Node 🔧
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies 📦
+        run: npm install
+
+      - name: Build project 🏗️
+        run: npm run build
+
+      - name: Deploy 🚀
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
